@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.UserConverter;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.repository.UserRepository;
+import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
 import java.util.Set;
@@ -25,10 +26,15 @@ public class UserService {
     @Transactional
     public Long create(RegisterUserCommand registerUserCommand) {
         User userToCreate = userConverter.from(registerUserCommand);
+        log.debug("Dane użytkownika do zapisu: {}", registerUserCommand);
+        if(userRepository.existsByUsername(userToCreate.getUsername())){
+            throw new UserAlreadyExistsException(String.format("Użytkownik %s już istnieje", userToCreate.getUsername()));
+        }
         userToCreate.setActive(true);
         userToCreate.setRoles(Set.of("ROLE_USER"));
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         userRepository.save(userToCreate);
+        log.debug("Zapisano użytkownika: {}", userToCreate);
         return userToCreate.getId();
     }
 }
