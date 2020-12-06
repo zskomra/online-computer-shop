@@ -22,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/register").permitAll()
                 .mvcMatchers("/login").permitAll()
+                .mvcMatchers("/product-category/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

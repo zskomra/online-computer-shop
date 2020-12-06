@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj kategorię produktu</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/product-category/add}" th:method="post" th:object="${createProductCategoryCommand}">
+        <fieldset>
+            <div>
+                <label>Nazwa kategorii
+                    <input th:field="*{name}" type="text"/>
+                </label>
+                <div th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}">
+
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div>
+                <button type="submit">Dodaj</button>
+            </div>
+            <div th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}"></div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
