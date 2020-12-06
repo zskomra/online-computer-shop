@@ -17,6 +17,8 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String name;
 
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
