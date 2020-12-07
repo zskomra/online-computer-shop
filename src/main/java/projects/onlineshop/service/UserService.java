@@ -2,6 +2,7 @@ package projects.onlineshop.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import projects.onlineshop.converter.UserConverter;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
+import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
 import java.util.Set;
@@ -36,5 +38,13 @@ public class UserService {
         userRepository.save(userToCreate);
         log.debug("Zapisano użytkownika: {}", userToCreate);
         return userToCreate.getId();
+    }
+
+    @Transactional
+    public boolean editUserDetails(EditUserCommand editUserCommand) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userToEdit = userRepository.getUsersByUsername(username);
+        userConverter.from(editUserCommand, userToEdit);
+        return true;
     }
 }

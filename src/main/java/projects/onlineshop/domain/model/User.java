@@ -30,5 +30,7 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "role")
     private Set<String> roles = new HashSet<>();
-
+    @OneToOne(mappedBy = "user")
+    @Column(name = "user_details")
+    private UserDetails userDetails;
 }
