@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logowanie użytkownika</title>
+</head>
+<body>
+    <h1>Logowanie użytkownika</h1>
+    <div>
+        <form th:action="@{/login}" method="post">
+            <fieldset>
+                <legend>Dane logowania</legend>
+                <div th:if="${param.error}">Nieprawidlowy użytkownik lub hasło!</div>
+                <div th:if="${param.logout}">Zostałeś pomyślnie wylogowany.</div>
+                <div>
+                    <label><b>Username:</b>
+                        <input type="email" name="username" placeholder="Wprowadź e-mail" required/>
+                    </label>
+                </div>
+                <div>
+                    <label><b>Hasło:</b>
+                        <input type="password" name="password" placeholder="Wprowadź hasło" required/>
+                    </label>
+                </div>
+                <div>
+                    <button type="submit">Zaloguj</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
