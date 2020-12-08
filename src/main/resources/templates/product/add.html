@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj produkt</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/product/add}" th:method="post" th:object="${createProductCommand}">
+        <fieldset>
+            <div>
+                <label>Nazwa produktu
+                    <input th:field="*{name}" type="text"/>
+                </label>
+                <div th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}">
+
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label>Opis produktu
+                <textarea th:field="*{description}" rows="5" cols="30"></textarea>
+            </label>
+            <div th:if="${#fields.hasErrors('description')}" th:text="${#fields.errors('description')}">
+
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Kategorie produktu</legend>
+            <p>
+                <select th:field="*{category}">
+                    <option value="" selected disabled hidden>--Wybierz kategorię--</option>
+                    <option
+                            th:each="productCategory : ${productCategories}"
+                            th:value="${productCategory}"
+                            th:text="${productCategory.name}"></option>
+                </select>
+            </p>
+        </fieldset>
+        <fieldset>
+            <label>Cena
+                <input th:field="*{price}" type="number" step="any"/>
+                <div th:if="${#fields.hasErrors('price')}" th:text="${#fields.errors('price')}">
+
+                </div>
+            </label>
+        </fieldset>
+        <fieldset>
+            <div>
+                <button type="submit">Dodaj</button>
+            </div>
+            <div th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}"></div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

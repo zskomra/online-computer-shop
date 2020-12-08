@@ -12,4 +12,10 @@ public class ProductCategoryConverter {
                 .name(createProductCategoryCommand.getName())
                 .build();
     }
+
+    public CreateProductCategoryCommand to(ProductCategory category){
+        return CreateProductCategoryCommand.builder()
+                .name(category.getName())
+                .build();
+    }
 }
