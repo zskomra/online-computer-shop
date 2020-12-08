@@ -9,8 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.service.UserService;
 import projects.onlineshop.web.command.RegisterUserCommand;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/register")
@@ -26,13 +29,20 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String processRegister(RegisterUserCommand registerUserCommand, BindingResult bindingResult) {
+    public String processRegister(@Valid RegisterUserCommand registerUserCommand, BindingResult bindingResult) {
+        log.debug("Dane do utworzenia użytkownika: {}", registerUserCommand);
         if(bindingResult.hasErrors()) {
+            log.debug("Błędne dane użytkownika: {}" , registerUserCommand);
             return "register/form";
         }
         try {
             Long id = userService.create(registerUserCommand);
+            log.debug("Utworzono użytkownika: {}", id);
             return "redirect:/login";
+        }
+        catch (UserAlreadyExistsException uaee) {
+            bindingResult.rejectValue("username",null,"Użytkownik o podanym adresie już istnieje");
+            return "register/form";
         }
         catch (RuntimeException re){
         bindingResult.rejectValue(null, null, "Wystąpił błąd");

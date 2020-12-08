@@ -4,6 +4,7 @@ package projects.onlineshop.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,4 +31,6 @@ public class User {
     @Column(name = "role")
     private Set<String> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserDetails userDetails;
 }
