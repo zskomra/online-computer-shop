@@ -1,14 +1,12 @@
 package projects.onlineshop.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity @Table(name = "user_details")
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
+@ToString(exclude = {"user", "userId"})
 public class UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

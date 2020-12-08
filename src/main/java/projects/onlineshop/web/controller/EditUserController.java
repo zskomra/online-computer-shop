@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.service.UserService;
 import projects.onlineshop.web.command.EditUserCommand;
 
@@ -21,10 +22,26 @@ public class EditUserController {
 
     private final UserService userService;
 
+
+
     @GetMapping
     public String getUserProfilePage (Model model){
-        model.addAttribute(new EditUserCommand());
+        EditUserCommand editUserCommand = showCurrentUserDetails();
+        model.addAttribute("editUserCommand",editUserCommand);
         return "profile/form";
+    }
+
+    private EditUserCommand showCurrentUserDetails() {
+        UserDetails userDetails = userService.getCurrentUserDetails();
+        return EditUserCommand.builder()
+                .firstName(userDetails.getFirstName())
+                .lastName(userDetails.getLastName())
+                .flatNumber(userDetails.getFlatNumber())
+                .homeNumber(userDetails.getHomeNumber())
+                .street(userDetails.getStreet())
+                .town(userDetails.getTown())
+                .zipCode(userDetails.getZipCode())
+                .build();
     }
 
     @PostMapping
@@ -32,9 +49,18 @@ public class EditUserController {
         log.debug("Pobranie danych do edycji: {}", editUserCommand);
         if(bindingResult.hasErrors()) {
             log.debug("Niepoprawne dane do edycji: {}", editUserCommand);
-            return "/profile/form";
+            return "profile/form";
         }
-        boolean isEditSuccess = userService.editUserDetails(editUserCommand);
+        try {
+            boolean isEditSuccess = userService.editUserDetails(editUserCommand);
+            log.debug("Zmieniono dane uzytkownika : {}", isEditSuccess);
+            return "redirect:/profile";
+        }
+        catch (RuntimeException re) {
+            log.debug("Blad podczas zmiany danych");
+            bindingResult.rejectValue(null,null,"Wystapil blad");
+
+        }
         return "redirect:/profile";
     }
 

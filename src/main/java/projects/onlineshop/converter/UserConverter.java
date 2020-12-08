@@ -1,5 +1,6 @@
 package projects.onlineshop.converter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
@@ -7,6 +8,7 @@ import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
 @Component
+@Slf4j
 public class UserConverter {
 
 
@@ -18,6 +20,7 @@ public class UserConverter {
     }
 
     public UserDetails from (EditUserCommand editUserCommand, User userToEdit) {
+        log.debug("Dane do zmiany : {}" , editUserCommand);
         UserDetails userDetails = userToEdit.getUserDetails();
         userDetails.setFirstName(editUserCommand.getFirstName());
         userDetails.setFlatNumber(editUserCommand.getFlatNumber());

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.UserConverter;
 import projects.onlineshop.domain.model.User;
+import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.web.command.EditUserCommand;
@@ -35,6 +36,9 @@ public class UserService {
         userToCreate.setActive(true);
         userToCreate.setRoles(Set.of("ROLE_USER"));
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
+        userToCreate.setUserDetails(UserDetails.builder()
+                .user(userToCreate)
+                .build());
         userRepository.save(userToCreate);
         log.debug("Zapisano użytkownika: {}", userToCreate);
         return userToCreate.getId();
@@ -44,7 +48,15 @@ public class UserService {
     public boolean editUserDetails(EditUserCommand editUserCommand) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userToEdit = userRepository.getUsersByUsername(username);
+        log.debug("Pobrano uzytkownika do edycji : {}", username);
         userConverter.from(editUserCommand, userToEdit);
+        log.debug("Zmienione dane uzytkownika : {}", userToEdit.getUserDetails());
         return true;
+    }
+
+    public UserDetails getCurrentUserDetails() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.getUsersByUsername(username);
+        return user.getUserDetails();
     }
 }
