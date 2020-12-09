@@ -20,6 +20,7 @@ public class ProductCategory {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 }

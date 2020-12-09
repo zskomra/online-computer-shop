@@ -5,10 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.ProductCategoryConverter;
+import projects.onlineshop.data.ProductCategorySummary;
 import projects.onlineshop.domain.model.ProductCategory;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.exception.ProductCategoryAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCategoryCommand;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @Slf4j @RequiredArgsConstructor
 public class ProductCategoryService {
@@ -17,7 +21,7 @@ public class ProductCategoryService {
     private final ProductCategoryConverter productCategoryConverter;
 
     @Transactional
-    public void create(CreateProductCategoryCommand category) {
+    public Long create(CreateProductCategoryCommand category) {
         log.debug("Dane do utworzenia kategorii produktu: {}", category);
 
         if (productCategoryRepository.existsByName(category.getName())) {
@@ -31,5 +35,15 @@ public class ProductCategoryService {
         productCategoryRepository.save(productCategory);
 
         log.debug("Zapisano kategorię produktu: {}", productCategory);
+
+        return productCategory.getId();
+    }
+
+    @Transactional
+    public List<ProductCategorySummary> getAllCategories() {
+        return productCategoryRepository.findAll()
+                .stream()
+                .map((x) -> productCategoryConverter.toProductCategorySummary(x))
+                .collect(Collectors.toList());
     }
 }
