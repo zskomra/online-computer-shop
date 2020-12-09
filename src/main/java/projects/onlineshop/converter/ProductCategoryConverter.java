@@ -1,6 +1,7 @@
 package projects.onlineshop.converter;
 
 import org.springframework.stereotype.Component;
+import projects.onlineshop.data.ProductCategorySummary;
 import projects.onlineshop.domain.model.ProductCategory;
 import projects.onlineshop.web.command.CreateProductCategoryCommand;
 
@@ -13,8 +14,9 @@ public class ProductCategoryConverter {
                 .build();
     }
 
-    public CreateProductCategoryCommand to(ProductCategory category){
-        return CreateProductCategoryCommand.builder()
+    public ProductCategorySummary toProductCategorySummary(ProductCategory category){
+        return ProductCategorySummary.builder()
+                .id(category.getId())
                 .name(category.getName())
                 .build();
     }

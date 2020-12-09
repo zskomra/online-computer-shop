@@ -26,15 +26,14 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Kategorie produktu</legend>
-            <p>
-                <select th:field="*{category}">
-                    <option value="" selected disabled hidden>--Wybierz kategorię--</option>
+            <p><label>Kategorie produktu
+                <select th:field="*{categoryId}">
                     <option
                             th:each="productCategory : ${productCategories}"
-                            th:value="${productCategory}"
+                            th:value="${productCategory.id}"
                             th:text="${productCategory.name}"></option>
                 </select>
+            </label>
             </p>
         </fieldset>
         <fieldset>

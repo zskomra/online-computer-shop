@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import projects.onlineshop.converter.ProductCategoryConverter;
-import projects.onlineshop.domain.model.ProductCategory;
+import projects.onlineshop.data.ProductCategorySummary;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
-import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.service.ProductCategoryService;
 import projects.onlineshop.service.ProductService;
-import projects.onlineshop.web.command.CreateProductCategoryCommand;
 import projects.onlineshop.web.command.CreateProductCommand;
 
 import javax.validation.Valid;
@@ -33,13 +31,16 @@ public class AddNewProductController {
     private final ProductCategoryRepository productCategoryRepository;
 
     @ModelAttribute("productCategories")
-    public List<CreateProductCategoryCommand> productCategories(){
+    public List<ProductCategorySummary> productCategories(){
+        List<ProductCategorySummary> allCategories = productCategoryService.getAllCategories();
+        log.debug("wyciągnięte kategorie: {}", allCategories);
         return productCategoryService.getAllCategories();
     }
 
     @GetMapping
     public String prepareAddProductPage(Model model) {
         model.addAttribute("createProductCommand", new CreateProductCommand());
+        log.debug("dane w modelu: {}", model);
         return "product/add";
     }
 

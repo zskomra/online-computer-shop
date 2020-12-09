@@ -1,6 +1,5 @@
 package projects.onlineshop.service;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import projects.onlineshop.converter.ProductConverter;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.exception.ProductAlreadyExistsException;
-import projects.onlineshop.exception.ProductCategoryAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCommand;
 
 @Service
@@ -31,7 +29,6 @@ public class ProductService {
         }
 
         Product productToSave = productConverter.from(product);
-        productRepository.save(productToSave);
         log.debug("Zapisano produkt: {}", productToSave);
 
         return productToSave.getId();

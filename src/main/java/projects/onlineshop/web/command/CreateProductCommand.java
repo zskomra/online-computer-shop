@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import projects.onlineshop.data.ProductCategorySummary;
 import projects.onlineshop.domain.model.ProductCategory;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class CreateProductCommand {
     private String description;
 
     @NotNull
-    private CreateProductCategoryCommand category;
+    private Long categoryId;
 
     @Positive
     private BigDecimal price;

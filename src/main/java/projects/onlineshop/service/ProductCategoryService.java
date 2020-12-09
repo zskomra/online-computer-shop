@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.ProductCategoryConverter;
+import projects.onlineshop.data.ProductCategorySummary;
 import projects.onlineshop.domain.model.ProductCategory;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.exception.ProductCategoryAlreadyExistsException;
@@ -39,10 +40,10 @@ public class ProductCategoryService {
     }
 
     @Transactional
-    public List<CreateProductCategoryCommand> getAllCategories() {
+    public List<ProductCategorySummary> getAllCategories() {
         return productCategoryRepository.findAll()
                 .stream()
-                .map((x) -> productCategoryConverter.to(x))
+                .map((x) -> productCategoryConverter.toProductCategorySummary(x))
                 .collect(Collectors.toList());
     }
 }
