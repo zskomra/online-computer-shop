@@ -20,7 +20,7 @@ public class ProductCategory {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @ToString.Exclude
-    @OneToMany(mappedBy = "category")
     private Set<Product> products;
 }
