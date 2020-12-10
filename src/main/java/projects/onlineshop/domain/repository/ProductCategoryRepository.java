@@ -7,4 +7,6 @@ import projects.onlineshop.domain.model.ProductCategory;
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 
     boolean existsByName(String name);
+
+    ProductCategory getOneByName(String name);
 }

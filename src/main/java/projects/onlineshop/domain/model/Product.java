@@ -1,6 +1,7 @@
 package projects.onlineshop.domain.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,10 +18,12 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Length(max = 600)
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private ProductCategory category;
 
     private BigDecimal price;
