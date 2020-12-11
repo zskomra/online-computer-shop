@@ -2,6 +2,8 @@ package projects.onlineshop.converter;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import projects.onlineshop.data.ProductCategorySummary;
+import projects.onlineshop.data.ProductSummary;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.ProductCategory;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
@@ -11,6 +13,7 @@ import projects.onlineshop.web.command.CreateProductCommand;
 public class ProductConverter {
 
     private final ProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryConverter productCategoryConverter;
 
     public Product from (CreateProductCommand command) {
         return Product.builder()
@@ -18,6 +21,14 @@ public class ProductConverter {
                 .description(command.getDescription())
                 .category(productCategoryRepository.getOne(command.getCategoryId()))
                 .price(command.getPrice())
+                .build();
+    }
+
+    public ProductSummary fromProductToProductSummary(Product product) {
+        return ProductSummary.builder()
+                .name(product.getName())
+                .category(productCategoryConverter.toProductCategorySummary(product.getCategory()))
+                .price(product.getPrice())
                 .build();
     }
 }

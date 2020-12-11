@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/webjars/font-awesome/5.8.2/css/all.css" rel="stylesheet"/>
     <title>Lista produktów</title>
 </head>
 <body>
 <h1>LISTA PRODUKTÓW</h1>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nazwa produktu
+                    <button type="submit">
+                        <i class="fas fa-sort"></i>
+                    </button>
+                </th>
+                <th scope="col">Kategoria produktu <i class="fas fa-sort"></i></th>
+                <th scope="col">Cena produktu <i class="fas fa-sort"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${allProducts}">
+                <td th:text="${product.name}">Nazwa testowa</td>
+                <td th:text="${product.category.name}">Kategoria testowa</td>
+                <td th:text="${product.price}">999.99</td>
+            </tr>
+        </tbody>
+    </table>
+
+    Total items: <span th:text="${totalItems}">xxx</span>
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${currentPage != i}" th:href="@{'/product/list/page/' + ${i}}" th:text="${i}"></a>
+        <span th:unless="${currentPage != i}" th:text="${i}"></span>
+        &nbsp;
+    </span>
+</div>
+
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
