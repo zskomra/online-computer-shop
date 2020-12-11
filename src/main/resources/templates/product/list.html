@@ -13,12 +13,23 @@
         <thead>
             <tr>
                 <th scope="col">Nazwa produktu
-                    <button type="submit">
-                        <i class="fas fa-sort"></i>
-                    </button>
+                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                        <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
+                        <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
+                    </a>
                 </th>
-                <th scope="col">Kategoria produktu <i class="fas fa-sort"></i></th>
-                <th scope="col">Cena produktu <i class="fas fa-sort"></i></th>
+                <th scope="col">Kategoria produktu
+                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">
+                        <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
+                        <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
+                    </a>
+                </th>
+                <th scope="col">Cena produktu
+                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
+                        <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
+                        <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
+                    </a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +43,9 @@
 
     Total items: <span th:text="${totalItems}">xxx</span>
     <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-        <a th:if="${currentPage != i}" th:href="@{'/product/list/page/' + ${i}}" th:text="${i}"></a>
+        <a th:if="${currentPage != i}"
+           th:href="@{'/product/list/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+           th:text="${i}"></a>
         <span th:unless="${currentPage != i}" th:text="${i}"></span>
         &nbsp;
     </span>

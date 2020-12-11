@@ -2,10 +2,7 @@ package projects.onlineshop.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.ProductConverter;
@@ -44,9 +41,11 @@ public class ProductService {
         return productToSave.getId();
     }
 
-    public Page<Product> getAllProducts(int pageNum) {
+    @Transactional
+    public Page<Product> getAllProducts(int pageNum, String sortField, String sortDir) {
         int pageSize = 4;
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
 
         return productRepository.findAll(pageable);
     }
