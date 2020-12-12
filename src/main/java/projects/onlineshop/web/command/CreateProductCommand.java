@@ -18,10 +18,10 @@ import java.math.BigDecimal;
 @Builder
 public class CreateProductCommand {
 
-    @NotNull @Size(min = 5, max = 30)
+    @NotNull @Size(min = 5, max = 100)
     private String name;
 
-    @Size(max = 250)
+    @Size(max = 600)
     private String description;
 
     @NotNull

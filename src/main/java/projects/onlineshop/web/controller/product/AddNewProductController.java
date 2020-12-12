@@ -1,4 +1,4 @@
-package projects.onlineshop.web.controller;
+package projects.onlineshop.web.controller.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +27,9 @@ public class AddNewProductController {
 
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
-    private final ProductCategoryConverter productCategoryConverter;
-    private final ProductCategoryRepository productCategoryRepository;
 
     @ModelAttribute("productCategories")
     public List<ProductCategorySummary> productCategories(){
-        List<ProductCategorySummary> allCategories = productCategoryService.getAllCategories();
-        log.debug("wyciągnięte kategorie: {}", allCategories);
         return productCategoryService.getAllCategories();
     }
 
@@ -56,7 +52,7 @@ public class AddNewProductController {
         try {
             productService.create(product);
             log.debug("Utworzono produkt: {}", product);
-            return "product/list";
+            return "redirect:list";
         } catch (RuntimeException re) {
             log.warn(re.getLocalizedMessage());
             log.debug("Błąd podczas tworzenia produktu", re);

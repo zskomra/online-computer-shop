@@ -20,7 +20,7 @@ public class UserDetails {
     private Integer homeNumber;
     private Integer flatNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private User user;
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
