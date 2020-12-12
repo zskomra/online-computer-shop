@@ -7,11 +7,11 @@
 <body>
 	<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
 	<div class="container">
-		<div class="topnav">
+		<div class="topnav" id="top-navbar">
 <!--Logo strony ----------------------------------------------------------------------------------------- -->
 			<div class="nav">
 				<div class="nav-logo">
-					<img th:src="@{/img/logo.png}"/>
+					<img th:src="@{/images/logo.png}"/>
 				</div>
 <!--Wyszukiwarka ----------------------------------------------------------------------------------------- -->
 				<div class="nav-search d-flex">
@@ -113,14 +113,14 @@
 
 				<div class="menu">
 					<ol class="menu-nav">
-						<li cl><a href="#"><img alt="" th:src="@{/static/images/computer.png}"/>  Komputery</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/mouse.png}"/>  Akcesoria</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/graphics.png}"/>  Grafika</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/motherboard.png}"/>  Płyty główne</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/ram.png}"/>  Ram</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/cpu.png}"/>  Procesory</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/disk.png}"/>  Dyski</a></li>
-						<li><a href="#"><img alt="" th:src="@{/static/images/desktop.png}"/>  Monitory</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/computer.png}"/>  Komputery</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/mouse.png}"/>  Akcesoria</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/graphics.png}"/>  Grafika</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/motherboard.png}"/>  Płyty główne</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/ram.png}"/>  Ram</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/cpu.png}"/>  Procesory</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/disk.png}"/>  Dyski</a></li>
+						<li><a href="#"><img alt="" th:src="@{/images/desktop.png}"/>  Monitory</a></li>
 						<li><a href="#"><img about="" th:src="@{/images/box.png}"/>  Obudowy</a></li>
 					</ol>
 				</div>
@@ -163,34 +163,8 @@
 		Projekt końcowy - Grudzień 2020r. "Sklep internetowy"
 	</div>
 
-
-
-	<script th:src="@{/static/js/jquery-1.11.3.min.js}"></script>
-		
-		<script>
-
-		$(document).ready(function() {
-		var NavY = $('.topnav').offset().top;
-		
-		var stickyNav = function(){
-		var ScrollY = $(window).scrollTop();
-			
-		if (ScrollY > NavY) { 
-			$('.topnav').addClass('sticky');
-		} else {
-			$('.topnav').removeClass('sticky'); 
-		}
-		};
-		
-		stickyNav();
-		
-		$(window).scroll(function() {
-			stickyNav();
-		});
-		});
-		
-	</script>
-
+	<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+	<script th:src="@{/js/home.js}"></script>
 </body>
 
 </html>

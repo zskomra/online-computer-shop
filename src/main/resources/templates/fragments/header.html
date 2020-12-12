@@ -1,11 +1,12 @@
-<head xmlns:th="http://www.thymeleaf.org" th:fragment="heading">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="heading">
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" type="text/css" th:href=" @{/static/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/helpers.css}">
-
+    <link th:href=" @{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/helpers.css}" rel="stylesheet" type="text/css">
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap}">
 </head>
+</html>
 
