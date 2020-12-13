@@ -3,13 +3,9 @@ package projects.onlineshop.web.controller.product;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import projects.onlineshop.converter.ProductConverter;
+import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.data.ProductSummary;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.service.ProductService;
@@ -21,22 +17,45 @@ import java.util.List;
 public class ProductListController {
 
     private final ProductService productService;
-    private final ProductConverter productConverter;
 
     @GetMapping
-    public String prepareProductListHomePage(Model model) {
-        return prepareProductListPage(model, 1, "name", "asc");
+    public String prepareProductListHomePage(Model model,
+                                             @RequestParam(value = "searchRegex",
+                                                     required = false,
+                                                     defaultValue = "") String searchRegex) {
+        String trim = searchRegex.trim();
+        log.debug("model: {}", model);
+        return "redirect:/product/list/filter/page/1?sortField=name&sortDir=asc&searchRegex=" + trim;
     }
 
-    @GetMapping("/page/{pageNum}")
-    public String prepareProductListPage(Model model,
-                                         @PathVariable(name = "pageNum") int pageNum,
-                                         @Param("sortField") String sortField,
-                                         @Param("sortDir") String sortDir) {
-        Page<Product> page = productService.getAllProducts(pageNum, sortField, sortDir);
+    @GetMapping("filter/page/{pageNum}")
+    public String prepareProductFilteredListPage(Model model,
+                                                 @PathVariable(name = "pageNum") int pageNum,
+                                                 @RequestParam("sortField") String sortField,
+                                                 @RequestParam("sortDir") String sortDir,
+                                                 @RequestParam(value = "searchRegex", required = false) String searchRegex) {
+
+        Page<Product> page;
+        if (searchRegex != null) {
+            page = productService.getAllProductsFiltered(pageNum, sortField, sortDir, searchRegex);
+        } else {
+            page = productService.getAllProducts(pageNum, sortField, sortDir);
+        }
 
         List<ProductSummary> allProductSummaries = productService.mapProductsToProductsSummaries(page);
 
+        addPageAndSortParamsToModel(model, pageNum, sortField, sortDir, searchRegex, page, allProductSummaries);
+
+        return "product/list";
+    }
+
+    private void addPageAndSortParamsToModel(Model model,
+                                             int pageNum,
+                                             String sortField,
+                                             String sortDir,
+                                             String searchRegex,
+                                             Page<Product> page,
+                                             List<ProductSummary> allProductSummaries) {
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
@@ -45,8 +64,8 @@ public class ProductListController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-        model.addAttribute("allProducts", allProductSummaries);
+        model.addAttribute("searchRegex", searchRegex);
 
-        return "product/list";
+        model.addAttribute("allProducts", allProductSummaries);
     }
 }

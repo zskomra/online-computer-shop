@@ -1,12 +1,14 @@
 package projects.onlineshop.web.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@Controller @Slf4j
+@RequestMapping("/home")
 public class HomePageController {
 
-    @RequestMapping("/home")
+    @GetMapping
     public String getMainPage() {
         return "home/main";
     }

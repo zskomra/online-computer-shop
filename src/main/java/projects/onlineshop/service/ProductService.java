@@ -14,7 +14,6 @@ import projects.onlineshop.web.command.CreateProductCommand;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -48,6 +47,16 @@ public class ProductService {
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
 
         return productRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public Page<Product> getAllProductsFiltered(int pageNum, String sortField, String sortDir, String regex) {
+        int pageSize = 4;
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+
+        String trimRegex = regex.trim();
+        return productRepository.findAllByNameContaining(pageable, trimRegex);
     }
 
     public List<ProductSummary> mapProductsToProductsSummaries(Page<Product> allProducts) {
