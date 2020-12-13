@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link th:href="@{/css/rating.css}" rel="stylesheet" type="text/css">
+
+
+    <title>Ocena produktu</title>
+</head>
+<body>
+<div class="container">
+    <div class="rating-container">
+        <div>
+            --Pobrana nazwa produktu--
+        </div>
+        <div>
+            <h2>---Możliwe zdjęcie---</h2>
+        </div >
+        <div class="form">
+            <form th:action="@{/product/rating}" th:method="post" th:object="${createRatingCommand}">
+                <fieldset>
+                    <div class="date">
+                        <label>Data zakupu:
+                            <input type="date" th:field="*{datePurchase}" name="datePurchase"/>
+                        </label>
+                    </div>
+                    <div class="star-container">
+                        <label>Oceń produkt</label>
+                        <div class="stars">
+                            <input type="radio" th:field="*{rating}" id="star5" name="rating" value="5"/>
+                            <label for="star5"> One star </label>
+                            <input type="radio" th:field="*{rating}" id="star4" name="rating" value="4"/>
+                            <label for="star4"> One star </label>
+                            <input type="radio" th:field="*{rating}" id="star3" name="rating" value="3"/>
+                            <label for="star3"> One star </label>
+                            <input type="radio" th:field="*{rating}" id="star2" name="rating" value="2"/>
+                            <label for="star2"> One star </label>
+                            <input type="radio" th:field="*{rating}" id="star1" name="rating" value="1"/>
+                            <label for="star1"> One star </label>
+                        </div>
+                    </div>
+                    <div class="error-rating" th:if="${#fields.hasErrors('rating')}">
+                        <span th:each="err : ${#fields.errors('rating')}" th:text="${err}"></span>
+                    </div>
+                    <div class="opinion">
+                        <label>Opinia o produkcie:
+                            <textarea th:field="*{opinion}"></textarea>
+                        </label>
+                    </div>
+                </fieldset>
+                <div>
+                    <button type="submit">Dodaj opinię</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
