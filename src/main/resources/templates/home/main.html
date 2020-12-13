@@ -16,8 +16,9 @@
 <!--Wyszukiwarka ----------------------------------------------------------------------------------------- -->
 				<div class="nav-search d-flex">
 					<div class="to-center">
-					<form>
-						<input type="text" placeholder="Czego szukasz?"/>
+					<form th:method="get" th:action="@{/product/list}">
+						<input name="searchRegex"
+							   type="text" placeholder="Czego szukasz?"/>
 						<button class="btn-search" type="submit">
 							<i class="fas fa-search"></i>
 						</button>
