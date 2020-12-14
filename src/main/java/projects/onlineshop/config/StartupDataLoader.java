@@ -7,14 +7,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import projects.onlineshop.domain.model.Product;
-import projects.onlineshop.domain.model.ProductCategory;
-import projects.onlineshop.domain.model.User;
-import projects.onlineshop.domain.model.UserDetails;
-import projects.onlineshop.domain.repository.ProductCategoryRepository;
-import projects.onlineshop.domain.repository.ProductRepository;
-import projects.onlineshop.domain.repository.UserDetailsRepository;
-import projects.onlineshop.domain.repository.UserRepository;
+import projects.onlineshop.domain.model.*;
+import projects.onlineshop.domain.repository.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -27,6 +21,7 @@ public class StartupDataLoader {
     private final ProductCategoryRepository productCategoryRepository;
     private final ProductRepository productRepository;
     private final UserDetailsRepository userDetailsRepository;
+    private final OrderRepository orderRepository;
 
     @EventListener
     public void onStartupPrepareData(ContextRefreshedEvent event) {
@@ -225,4 +220,6 @@ public class StartupDataLoader {
                 .user(userRepository.getUsersByUsername("klient2@user.pl"))
                 .build());
     }
+
+
 }

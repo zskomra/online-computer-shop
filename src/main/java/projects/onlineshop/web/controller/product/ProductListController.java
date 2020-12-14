@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.converter.ProductConverter;
 import projects.onlineshop.data.ProductSummary;
 import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.service.OrderService;
 import projects.onlineshop.service.ProductService;
 
 import java.util.List;
@@ -22,6 +21,7 @@ public class ProductListController {
 
     private final ProductService productService;
     private final ProductConverter productConverter;
+    private final OrderService orderService;
 
     @GetMapping
     public String prepareProductListHomePage(Model model) {
@@ -49,4 +49,5 @@ public class ProductListController {
 
         return "product/list";
     }
+
 }

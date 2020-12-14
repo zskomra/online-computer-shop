@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Koszyk zamówień</title>
+</head>
+<body>
+    <h2>Twoje zamówienia:</h2>
+        <div class="align-center">
+            <table>
+                <tr>
+                    <td>Produkt:</td>
+                    <td>Cena:</td>
+                </tr>
+                <tr th:each="order : ${userOrders}">
+                    <td th:text="${order.name}">Nazwa testowa</td>
+                    <td th:text="${order.price}">Cena testowa</td>
+                </tr>
+            </table>
+            <p>Suma: <span th:text="${orderSum}"></span>
+            </p>
+            <a th:href="@{'/order/purchase?orderId=' + ${order.id}}">Kupuję</a>
+        </div>
+</body>
+</html>

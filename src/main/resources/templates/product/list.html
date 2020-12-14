@@ -30,6 +30,7 @@
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
                 </th>
+                <th>Koszyk</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,9 @@
                 <td th:text="${product.name}">Nazwa testowa</td>
                 <td th:text="${product.category.name}">Kategoria testowa</td>
                 <td th:text="${product.price}">999.99</td>
+                <td>
+                    <a th:href="@{'/order/add?productId=' + ${product.id}}">Dodaj</a>
+                </td>
             </tr>
         </tbody>
     </table>
