@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:include="fragments/header :: heading">
 	<title>Sklep komputerowy</title>
 </head>
@@ -48,46 +48,54 @@
 
 							<ul class="user-ul">
 								<li class="user-li-li">
-									<button>
+									<button sec:authorize="!isAuthenticated()">
 										<a th:href="@{/login}">
 											<i class="user-li-li"></i>Zaloguj<p></p>
 										</a>
 									</button>
-									<p>--- Nie masz konta? ---</p>
-									<button>
-										<a th:href="@{/register}">
-											<li class="user-li-li">Rejestracja</i><p></p>
-										</a>
-									</button>
-								</li>
-
-								<li class="user-li-li">
-									<a href="#">
-										<i class="far fa-user">  Twoje konto</i><p></p>
-									</a>
-								</li>
-
-								<li class="user-li-li">
-									<div>
-									<a href="#">
-										<i class="far fa-clipboard">  Zamówienia</i><p></p>
-									</a>
+									<form th:action="@{/logout}" th:method="post">
+										<button sec:authorize="isAuthenticated()">
+											<i class="user-li-li"></i>Wyloguj<p></p>
+										</button>
+									</form>
+									<div sec:authorize="!isAuthenticated()">
+										<p>--- Nie masz konta? ---</p>
+										<button>
+											<a th:href="@{/register}">
+												<i class="user-li-li">Rejestracja</i><p></p>
+											</a>
+										</button>
 									</div>
 								</li>
+								<div sec:authorize="isAuthenticated()">
+									<li class="user-li-li">
+										<a href="#">
+											<i class="far fa-user">  Twoje konto</i><p></p>
+										</a>
+									</li>
 
-								<li class="user-li-li">
-									<div>
-									<a href="#">
-										<i class="far fa-heart">  Listy zakupowe</i><p></p>
-									</a></div>
-								</li>
+									<li class="user-li-li">
+										<div>
+										<a href="#">
+											<i class="far fa-clipboard">  Zamówienia</i><p></p>
+										</a>
+										</div>
+									</li>
 
-								<li class="user-li-li">
-									<div>
-									<a th:href="@{/profile/form}">
-										<i class="fas fa-cog">  Ustawienia konta</i><p></p>
-									</a></div>
-								</li>
+									<li class="user-li-li">
+										<div>
+										<a href="#">
+											<i class="far fa-heart">  Listy zakupowe</i><p></p>
+										</a></div>
+									</li>
+
+									<li class="user-li-li">
+										<div>
+										<a th:href="@{/profile/form}">
+											<i class="fas fa-cog">  Ustawienia konta</i><p></p>
+										</a></div>
+									</li>
+								</div>
 							</ul>
 
 						</li>
