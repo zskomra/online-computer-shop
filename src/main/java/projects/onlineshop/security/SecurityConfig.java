@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/product-category/add").hasRole("ADMIN")
                 .antMatchers("/product/add").hasRole("ADMIN")
-                .antMatchers("/product/list/*").permitAll()
+                .antMatchers("/product/list/**").permitAll()
                 .antMatchers("/contact").permitAll()
                 .antMatchers("/contact/confirm").permitAll()
                 .antMatchers("/home").permitAll()
@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                     .loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/", true)
+                    .defaultSuccessUrl("/home", true)
                 .and()
                 .logout()
-                    .logoutSuccessUrl("/").permitAll();
+                    .logoutSuccessUrl("/home").permitAll();
     }
 }
