@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="loginModal" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Wprowadź dane logowania</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form form-label">
+                <form th:action="@{/login}" method="post">
+                    <div th:if="${param.error}">Nieprawidlowy użytkownik lub hasło!</div>
+                    <div th:if="${param.logout}">Zostałeś pomyślnie wylogowany.</div>
+                    <div class="form-group">
+                        <label class="form-field-login" for="login">Login:
+                            <input class="form-control form-field-login"
+                                   id="login" type="email" name="username" placeholder="Wprowadź e-mail" required/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-field-login form-field-login" for="password">Hasło:
+                            <input class="form-control"
+                                   id="password" type="password" name="password" placeholder="Wprowadź hasło" required/>
+                        </label>
+                    </div>
+                    <div class="form-group form-btn">
+                        <button class="btn btn-primary" type="submit">Zaloguj</button>
+                        <div class="alert alert-danger" role="alert"
+                             th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

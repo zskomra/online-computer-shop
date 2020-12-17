@@ -254,6 +254,11 @@
 	width: 700px;
 }
 
+.form-field-login {
+	margin-top: 10px;
+	width: 400px;
+}
+
 .form-btn {
 	margin-top: 10px;
 	display: flex;

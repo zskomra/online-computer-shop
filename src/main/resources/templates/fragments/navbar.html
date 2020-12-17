@@ -45,10 +45,11 @@
 
                         <ul class="user-ul">
                             <li class="user-li-li">
-                                <button sec:authorize="!isAuthenticated()">
-                                    <a th:href="@{/login}">
-                                        <i class="user-li-li"></i>Zaloguj<p></p>
-                                    </a>
+                                <button id="loginButton"
+                                        type="button"
+                                        data-toggle="modal" data-target="#loginModal"
+                                        sec:authorize="!isAuthenticated()">
+                                    <i class="user-li-li"></i>Zaloguj<p></p>
                                 </button>
                                 <form th:action="@{/logout}" th:method="post">
                                     <button sec:authorize="isAuthenticated()">
