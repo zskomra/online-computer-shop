@@ -5,8 +5,13 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+import java.util.Set;
+
 
 @Entity
 @Table(name = "products")
@@ -30,11 +35,13 @@ public class Product {
 
     private BigDecimal price;
 
+
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
 
-//    @ManyToMany
-//    @JoinTable(name = "product_orders",
-//    joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-//    List<Order> products = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rating_id")
+    private Set<ProductRating> productRating;
+
 }

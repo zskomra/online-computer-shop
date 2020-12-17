@@ -13,19 +13,19 @@
         <thead>
             <tr>
                 <th scope="col">Nazwa produktu
-                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
                         <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
                 </th>
                 <th scope="col">Kategoria produktu
-                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">
+                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
                         <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
                 </th>
                 <th scope="col">Cena produktu
-                    <a th:href="@{'/product/list/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
+                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
                         <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
@@ -56,7 +56,7 @@
     Total items: <span th:text="${totalItems}">xxx</span>
     <span th:each="i : ${#numbers.sequence(1, totalPages)}">
         <a th:if="${currentPage != i}"
-           th:href="@{'/product/list/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+           th:href="@{'/product/list/filter/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&searchRegex=' + ${searchRegex}}"
            th:text="${i}"></a>
         <span th:unless="${currentPage != i}" th:text="${i}"></span>
         &nbsp;
