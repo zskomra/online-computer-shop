@@ -38,9 +38,17 @@
                 <td th:text="${product.name}">Nazwa testowa</td>
                 <td th:text="${product.category.name}">Kategoria testowa</td>
                 <td th:text="${product.price}">999.99</td>
-                <td>
-                    <a th:href="@{'/order/add?productId=' + ${product.id}}">Dodaj</a>
+                <td th:with="addOrder=@{/order/add}">
+                    <form method="post" th:action="@{${addOrder}}">
+                        <input type="hidden" name="productId" th:value="${product.id}"/>
+                        <button type="submit" class="waves-effect waves-light btn-small">
+                            Dodaj
+                        </button>
+                    </form>
                 </td>
+<!--                <td>-->
+<!--                    <a th:href="@{'/order/add?productId=' + ${product.id}}">Dodaj</a>-->
+<!--                </td>-->
             </tr>
         </tbody>
     </table>

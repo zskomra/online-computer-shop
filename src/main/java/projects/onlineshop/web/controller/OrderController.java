@@ -28,7 +28,7 @@ public class OrderController {
         Long id = productId;
         log.debug("Pobrano id produktu: {}", id);
         orderService.addOrder(id);
-        return "order/list";
+        return "home/main";
     }
 
 
@@ -49,7 +49,7 @@ public class OrderController {
     public String confirmPurchase(@RequestParam Long orderId){
         Long id = orderId;
         log.debug("Pobrano id zamowienia: {}", id);
-        Boolean success = orderService.buyOrder(orderId);
+        Boolean success = orderService.confirmOrder(orderId);
         log.debug("Koszyk usunieto : {}", success);
         return "home/main";
     }

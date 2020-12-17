@@ -58,7 +58,7 @@ public class OrderService {
         return bigDecimal;
     }
     @Transactional
-    public boolean buyOrder(Long orderId) {
+    public boolean confirmOrder(Long orderId) {
         Order order =orderRepository.getOne(orderId);
         log.debug("Zamowien w koszyku: {}",order.getProducts().size());
         order.getProducts().clear();

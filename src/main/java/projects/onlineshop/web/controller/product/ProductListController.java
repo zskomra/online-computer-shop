@@ -32,7 +32,8 @@ public class ProductListController {
     public String prepareProductListPage(Model model,
                                          @PathVariable(name = "pageNum") int pageNum,
                                          @Param("sortField") String sortField,
-                                         @Param("sortDir") String sortDir) {
+                                         @Param("sortDir") String sortDir)
+    {
         Page<Product> page = productService.getAllProducts(pageNum, sortField, sortDir);
 
         List<ProductSummary> allProductSummaries = productService.mapProductsToProductsSummaries(page);
@@ -49,5 +50,4 @@ public class ProductListController {
 
         return "product/list";
     }
-
 }
