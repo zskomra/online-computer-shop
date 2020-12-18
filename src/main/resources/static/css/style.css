@@ -6,7 +6,6 @@
 .container {
 	background-color: white;
 	min-height: 100vh;
-
 }
 
 .topnav {
@@ -202,13 +201,12 @@
 .content {
     width: 100%;
     text-align: center;
-	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .left, .right,.middle {
 	text-align: left;
-	width: 60%;
-	display: inline-block;
+	width: 100%;
     margin: 0 auto;
     padding: 3px;
 }
@@ -224,11 +222,11 @@
 	border-radius: 5px 5px 5px 5px;
 	background-color: rgba(0, 125, 197, 0.103);
 	margin: 10px;
+	width: 100%;
 }
 
-
-
 .footer {
+	display: block;
 	width: 100%;
 	height: 50px;
 	margin-top: 20px;
@@ -237,4 +235,58 @@
 	color: #fff;
 	background-color: black;
 	line-height: 50px;
+}
+
+.form {
+	display: flex;
+	justify-content: center;
+}
+
+.form-label {
+	text-align: left;
+	margin: 5px;
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.form-field {
+	margin-top: 10px;
+	width: 700px;
+}
+
+.form-field-login {
+	margin-top: 10px;
+	width: 400px;
+}
+
+.form-btn {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.table-header {
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.table-content {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.table-total-items {
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+	float: left;
+	margin: 10px;
+}
+
+.table-pagination {
+	float: left;
+	margin: 10px;
+	justify-content: center;
+}
+
+.clear-both {
+	clear: both;
 }

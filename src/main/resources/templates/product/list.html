@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/webjars/font-awesome/5.8.2/css/all.css" rel="stylesheet"/>
+<head th:include="fragments/header :: heading">
     <title>Lista produktów</title>
 </head>
 <body>
-<h1>LISTA PRODUKTÓW</h1>
-<div>
-    <table class="table table-hover">
-        <thead>
+
+<div class="container">
+    <div th:replace="/fragments/navbar :: navbar"></div>
+    <div class="content">
+    <div class="middle">
+        <table class="table table-hover">
+            <thead class="table-header">
             <tr>
                 <th scope="col">Nazwa produktu
                     <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
@@ -31,26 +31,42 @@
                     </a>
                 </th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody class="table-content">
             <tr th:each="product : ${allProducts}">
                 <td th:text="${product.name}">Nazwa testowa</td>
                 <td th:text="${product.category.name}">Kategoria testowa</td>
                 <td th:text="${product.price}">999.99</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <div class="table-footer">
+            <div class="table-total-items">
+                Total items: <span th:text="${totalItems}">xxx</span>
+            </div>
 
-    Total items: <span th:text="${totalItems}">xxx</span>
-    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-        <a th:if="${currentPage != i}"
-           th:href="@{'/product/list/filter/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&searchRegex=' + ${searchRegex}}"
-           th:text="${i}"></a>
-        <span th:unless="${currentPage != i}" th:text="${i}"></span>
-        &nbsp;
-    </span>
+            <nav aria-label="Page navigation">
+                <span class="pagination">
+                    <span class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                        <a class="page-link" th:if="${currentPage != i}"
+                           th:href="@{'/product/list/filter/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + '&searchRegex=' + ${searchRegex}}"
+                           th:text="${i}">
+                        </a>
+                        <a class="page-link" th:if="${currentPage == i}" th:href="@{#}" th:text="${i}">
+                        </a>
+                    </span>
+                </span>
+            </nav>
+            <div class="clear-both"></div>
+        </div>
+    </div>
 </div>
+</div>
+<div th:replace="/fragments/footer :: footer"></div>
 
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

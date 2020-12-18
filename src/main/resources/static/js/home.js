@@ -10,3 +10,10 @@ function myFunction() {
         header.classList.remove("sticky");
     }
 }
+
+$(document).ready(function() {
+    $('#loginModal').modal('hide');
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+});
