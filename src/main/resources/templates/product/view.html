@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/hview :: heading">
+    <meta charset="UTF-8">
+    <title th:text="${productName}"></title>
+
+</head>
+<body>
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+    <div class="container">
+        <a href="#" class="scrollup"></a>
+        <div class="presentation">
+            <div class="product">
+                <p th:text="${productName}">Testowa nazwa</p>
+                <img th:src="@{/images/podzespoly.png}" style="width: 408px; height: 308px">
+            </div>
+            <div class="product-option">
+                <div class="option">
+                    <p th:text="${productPrice + ' zł'} ">Cena</p>
+                    <button>
+                        <i class="fas fa-cart-plus"></i>  Dodaj do koszyka
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mini-panel">
+            <ul>
+                <a id="link1" href="#desc-link">Opis i dane</a>
+            </ul>
+            <ul>
+                <a id="link2" href="#rati-link">Oceny</a>
+            </ul>
+        </div>
+        <div class="descript-contener">
+            <div class="description" id="desc-link">
+                <p class="nav-text">Opis i dane</p>
+                <p th:text="${productDescription}"></p>
+            </div>
+
+<!-- komentarze---------------------------------------------------------------------------------- -->
+            <div class="rating" id="rati-link">
+                <p class="nav-text">Opinie</p>
+                <div class="add-button">
+                   <button class="comment-btn">
+                       <a th:href="@{'/product/rating/' + ${productId}}">Dodaj komentarz</a>
+                   </button>
+                </div>
+                <div class="comment-list">
+                    <p th:text="${tableSize}">Pusta</p>
+                    <tr th:each="rating : ${allRating}">
+                        <td>
+                            <div class="text-rating" >
+                                <p>Ocena: </p><p th:text="${rating.rating}">4</p>
+                                <p>Data zakupu: </p><p th:text="${rating.dateComment}">12.10.2020</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="comment">
+                                <p th:text="${rating.title}"></p>
+                                <p>Komentarz: </p>
+                                <p th:text="${rating.username}">Użytkownik</p>
+                                <p th:text="${rating.opinion}">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Nam ornare in libero sit amet pretium. Sed nulla augue,
+                                    aliquet quis gravida non, vehicula at magna.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/home.js}"></script>
+</body>
+</html>

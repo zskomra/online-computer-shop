@@ -36,13 +36,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserDetails userDetails;
 
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Order order;
-
 
     @OneToOne
     @JoinColumn(name = "rate_id")
     private ProductRating rating;
-
 }
