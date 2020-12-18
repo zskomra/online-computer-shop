@@ -9,5 +9,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     boolean existsByName(String name);
 
+    Product getById(Long id);
+
+
     Page<Product> findAllByNameContaining(Pageable pageable, String regex);
+
 }

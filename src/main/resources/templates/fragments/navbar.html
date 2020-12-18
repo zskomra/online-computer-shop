@@ -89,7 +89,7 @@
 
                                 <li class="user-li-li">
                                     <div>
-                                        <a th:href="@{/profile/form}">
+                                        <a th:href="@{/profile}">
                                             <i class="fas fa-cog">  Ustawienia konta</i><p></p>
                                         </a></div>
                                 </li>
@@ -108,7 +108,11 @@
                     </li>
                     <!-- ================================================================================= -->
                     <li class="user-li">
-                        <i class="fas fa-shopping-basket"></i><p>Twój koszyk</p>
+                        <form th:method="get" th:action="@{/order/list}">
+                            <button class="fas fa-shopping-basket" type="submit">
+                            </button>
+                        </form>
+                        <p>Twój koszyk</p>
                         <ul class="user-ul">
                             <li class="user-li-li">
                                 <p>Brak produktów w koszyku</p>

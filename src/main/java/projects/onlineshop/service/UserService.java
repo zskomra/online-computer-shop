@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.UserConverter;
+import projects.onlineshop.domain.model.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.repository.UserRepository;
@@ -14,6 +15,7 @@ import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -39,6 +41,10 @@ public class UserService {
         userToCreate.setUserDetails(UserDetails.builder()
                 .user(userToCreate)
                 .build());
+        userToCreate.setOrder(Order.builder()
+                .user(userToCreate)
+                .products(new ArrayList<>())
+                .build());
         userRepository.save(userToCreate);
         log.debug("Zapisano użytkownika: {}", userToCreate);
         return userToCreate.getId();
@@ -58,5 +64,10 @@ public class UserService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.getUsersByUsername(username);
         return user.getUserDetails();
+    }
+
+    public User getLoggedUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.getUsersByUsername(username);
     }
 }

@@ -30,6 +30,7 @@
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
                 </th>
+                <th>Koszyk</th>
             </tr>
             </thead>
             <tbody class="table-content">
@@ -37,6 +38,17 @@
                 <td th:text="${product.name}">Nazwa testowa</td>
                 <td th:text="${product.category.name}">Kategoria testowa</td>
                 <td th:text="${product.price}">999.99</td>
+                <td th:with="addOrder=@{/order/add}">
+                    <form method="post" th:action="@{${addOrder}}">
+                        <input type="hidden" name="productId" th:value="${product.id}"/>
+                        <button type="submit" class="waves-effect waves-light btn-small">
+                            Dodaj
+                        </button>
+                    </form>
+                </td>
+<!--                <td>-->
+<!--                    <a th:href="@{'/order/add?productId=' + ${product.id}}">Dodaj</a>-->
+<!--                </td>-->
             </tr>
             </tbody>
         </table>

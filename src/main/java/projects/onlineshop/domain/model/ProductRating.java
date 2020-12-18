@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @Builder @EqualsAndHashCode(of = "id")
-@ToString
+@ToString(exclude = "user")
 public class ProductRating {
 
     @Id

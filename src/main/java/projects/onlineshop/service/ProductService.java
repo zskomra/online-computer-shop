@@ -64,4 +64,10 @@ public class ProductService {
                 .map(productConverter::fromProductToProductSummary)
                 .collect(Collectors.toList());
     }
+
+    public Product getProductById(Long id) {
+        Product product =productRepository.getById(id);
+        log.debug("Pobrano produkt: {}", product);
+        return product;
+    }
 }

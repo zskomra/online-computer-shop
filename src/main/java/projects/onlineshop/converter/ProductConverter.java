@@ -26,6 +26,7 @@ public class ProductConverter {
 
     public ProductSummary fromProductToProductSummary(Product product) {
         return ProductSummary.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .category(productCategoryConverter.toProductCategorySummary(product.getCategory()))
                 .price(product.getPrice())
