@@ -28,7 +28,7 @@ public class OrderController {
         Long id = productId;
         log.debug("Pobrano id produktu: {}", id);
         orderService.addOrder(id);
-        return "home/main";
+        return "redirect:/product/list";
     }
 
 
@@ -51,7 +51,7 @@ public class OrderController {
         log.debug("Pobrano id zamowienia: {}", id);
         Boolean success = orderService.confirmOrder(orderId);
         log.debug("Koszyk usunieto : {}", success);
-        return "home/main";
+        return "redirect:/order/list";
     }
 }
 
