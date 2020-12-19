@@ -249,6 +249,14 @@
     justify-content: center;
 }
 
+.link-to-back {
+    position: absolute;
+    left: 100px;
+    top: 250px;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
 
 .scrollup {
     width: 64px;

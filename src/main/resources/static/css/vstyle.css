@@ -1,7 +1,12 @@
 * {
 	font-family: 'Open Sans', sans-serif;
 	box-sizing: border-box;
-  }
+}
+
+.container {
+	background-color: white;
+	min-height: 100vh;
+}
 
 .topnav {
 	width: 100%;
@@ -80,6 +85,14 @@
 }
 
 
+.sticky {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 100;
+}
+
 /*Menu boczne ----------------------------------------------------------------------- */
 
 .user-main {
@@ -151,7 +164,7 @@
 	float: left;
 	padding: 4px;
 }
- /*Menu dolne ----------------------------------------------------------------------- */
+/*Menu dolne ----------------------------------------------------------------------- */
 
 .menu-nav {
 	padding: 0;
@@ -187,16 +200,16 @@
 /*kontent ----------------------------------------------------------------------- */
 
 .content {
-    width: 100%;
-    text-align: center;
+	width: 100%;
+	text-align: center;
 	margin-top: 10px;
 }
 
 .left, .right,.middle {
 	text-align: left;
 	width: 100%;
-    margin: 0 auto;
-    padding: 3px;
+	margin: 0 auto;
+	padding: 3px;
 }
 
 .content h1 {
@@ -277,4 +290,10 @@
 
 .clear-both {
 	clear: both;
+}
+
+.btn-list {
+	text-decoration: none;
+	border: none;
+	background-color: transparent;
 }

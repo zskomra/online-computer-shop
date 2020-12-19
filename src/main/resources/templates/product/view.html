@@ -11,7 +11,12 @@
 
     <div class="container">
         <div th:replace="/fragments/navbar :: navbar"></div>
-        <a href="#" class="scrollup"></a>
+        <a href="?roll" class="scrollup"></a>
+        <div class="link-to-back">
+            <a th:href="@{/product/list}">
+                <img th:src="@{/images/previous.png}" style="width: 64px; height: 64px" alt="Wróc">
+            </a>
+        </div>
         <div class="presentation">
             <div class="product">
                 <p th:text="${productName}">Testowa nazwa</p>
@@ -28,10 +33,11 @@
                             </button>
                         </form>
                     </div>
-                    <div class="to-watch">
-                        <form>
+                    <div th:with="addToWatch=@{/product/view/save}" class="to-watch">
+                        <form method="post" th:action="@{${addToWatch}}">
+                            <input type="hidden" name="productId" th:value="${productId}"/>
                             <button type="submit">
-                                <i class="far fa-heart">  Zapamiętaj</i>
+                                <i class="far fa-heart"> Zapamiętaj</i>
                             </button>
                         </form>
                     </div>

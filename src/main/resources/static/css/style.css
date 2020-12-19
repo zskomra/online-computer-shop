@@ -418,3 +418,11 @@
 	display: flex;
 	justify-content: flex-end;
 }
+
+.btn-list {
+	text-decoration: none;
+	border: none;
+	background-color: transparent;
+
+}
+

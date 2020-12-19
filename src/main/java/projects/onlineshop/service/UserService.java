@@ -10,12 +10,14 @@ import projects.onlineshop.converter.UserConverter;
 import projects.onlineshop.domain.model.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
+import projects.onlineshop.domain.model.WatchProduct;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -44,6 +46,10 @@ public class UserService {
         userToCreate.setOrder(Order.builder()
                 .user(userToCreate)
                 .products(new ArrayList<>())
+                .build());
+        userToCreate.setWatchProduct(WatchProduct.builder()
+                .user(userToCreate)
+                .products(new HashSet<>())
                 .build());
         userRepository.save(userToCreate);
         log.debug("Zapisano użytkownika: {}", userToCreate);
