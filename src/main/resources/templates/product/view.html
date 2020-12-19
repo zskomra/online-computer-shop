@@ -6,8 +6,11 @@
 
 </head>
 <body>
+
 <script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+
     <div class="container">
+        <div th:replace="/fragments/navbar :: navbar"></div>
         <a href="#" class="scrollup"></a>
         <div class="presentation">
             <div class="product">
@@ -17,9 +20,21 @@
             <div class="product-option">
                 <div class="option">
                     <p th:text="${productPrice + ' zł'} ">Cena</p>
-                    <button>
-                        <i class="fas fa-cart-plus"></i>  Dodaj do koszyka
-                    </button>
+                    <div th:with="addOrder=@{/product/view/add}" class="to-cart">
+                        <form method="post" th:action="@{${addOrder}}">
+                            <input type="hidden" name="productId" th:value="${productId}"/>
+                            <button type="submit">
+                                <i class="fas fa-cart-plus"> Dodaj do koszyka</i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="to-watch">
+                        <form>
+                            <button type="submit">
+                                <i class="far fa-heart">  Zapamiętaj</i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,7 +43,7 @@
                 <a id="link1" href="#desc-link">Opis i dane</a>
             </ul>
             <ul>
-                <a id="link2" href="#rati-link">Oceny</a>
+                <a id="link2" href="#rati-link">Opinie</a>
             </ul>
         </div>
         <div class="descript-contener">
@@ -39,43 +54,50 @@
 
 <!-- komentarze---------------------------------------------------------------------------------- -->
             <div class="rating" id="rati-link">
-                <p class="nav-text">Opinie</p>
+                <p class="nav-opinion">Opinie:</p>
                 <div class="add-button">
-                   <button class="comment-btn">
-                       <a th:href="@{'/product/rating/' + ${productId}}">Dodaj komentarz</a>
-                   </button>
+                    <a th:href="@{'/product/rating/' + ${productId}}">
+                       <button class="comment-btn">
+                           <i class="far fa-comment"></i> Dodaj komentarz
+                       </button>
+                    </a>
                 </div>
                 <div class="comment-list">
-                    <p th:text="${tableSize}">Pusta</p>
-                    <tr th:each="rating : ${allRating}">
-                        <td>
-                            <div class="text-rating" >
-                                <p>Ocena: </p><p th:text="${rating.rating}">4</p>
-                                <p>Data zakupu: </p><p th:text="${rating.dateComment}">12.10.2020</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="comment">
-                                <p th:text="${rating.title}"></p>
-                                <p>Komentarz: </p>
-                                <p th:text="${rating.username}">Użytkownik</p>
-                                <p th:text="${rating.opinion}">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Nam ornare in libero sit amet pretium. Sed nulla augue,
-                                    aliquet quis gravida non, vehicula at magna.
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
+                    <div class="single-comment"  th:each="rating : ${allRating}">
+                        <tr>
+                            <td>
+                                <div class="rating-date">
+                                    <div class="rating-star" >
+                                       <p th:text="'Ocena: ' + ${rating.rating} +'/5'">4</p>
+                                    </div>
+                                    <div class="user">
+                                        <p th:text="'Dodał: ' + ${rating.username}">Użytkownik</p>
+                                    </div>
+                                    <div class="date">
+                                        <p th:text="'Data dodania: ' + ${rating.dateComment}">12.10.2020</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="full-comment">
+                                    <div class="comm-title">
+                                        <h2 th:text="${rating.title}"></h2>
+                                    </div>
+                                    <div class="comment-text">
+                                        <p th:text="${rating.opinion}">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Nam ornare in libero sit amet pretium. Sed nulla augue,
+                                            aliquet quis gravida non, vehicula at magna.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+
                 </div>
             </div>
-
-
-
         </div>
     </div>
-
-    <script th:src="@{/js/jquery-1.11.3.min.js}"></script>
-    <script th:src="@{/js/home.js}"></script>
 </body>
 </html>

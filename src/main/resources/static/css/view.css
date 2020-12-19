@@ -65,13 +65,33 @@
     padding-top: 25px;
 }
 
-.option button {
+.to-cart button {
     width: 75%;
     justify-content: center;
     display: block;
+    margin-bottom: 30px;
     margin-right: auto;
     margin-left: auto;
-    background-color: mediumblue;
+    background-image:
+            linear-gradient(to bottom right, deepskyblue, blueviolet);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+}
+.to-watch button {
+    width: 75%;
+    justify-content: center;
+    display: block;
+    margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image:
+            linear-gradient(to bottom right, red, firebrick);
     border: none;
     color: white;
     padding: 15px 32px;
@@ -102,7 +122,7 @@
     color: black;
 }
 
-ul {
+.mini-panel ul {
     width: 150px;
     margin: 0;
     list-style-type: none;
@@ -113,16 +133,19 @@ ul {
     letter-spacing: 2px;
 }
 
-ul p {
+.mini-panel ul p {
     padding-left: 2%;
     padding-right: 2%;
 }
 
 .descript-contener {
     width: 80%;
-    height: auto;
+    overflow:hidden;
+    height:2%;
+    padding-bottom: 25px;
     margin-left: 10%;
     margin-right: 10%;
+    margin-bottom: 10px;
     box-shadow: 5px 5px 20px darkgrey;
 }
 
@@ -137,7 +160,8 @@ ul p {
 }
 
 .rating {
-    height: auto;
+    height: 150px;
+    width: 100%;
     justify-content: center;
     display: block;
     padding: 25px;
@@ -149,13 +173,61 @@ ul p {
 .nav-text {
     font-size: 30px;
     border-bottom: 1px solid darkgrey;
-    padding-bottom: 2px;
+    padding-bottom: 10px;
+
 }
 
-.rating {
-    height: 150px;
+.nav-opinion {
+    font-size: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.single-comment {
     width: 100%;
-    border-bottom: 1px solid darkgray;
+    height: 125px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
+    box-shadow: 5px 5px 20px darkgrey;
+}
+
+.rating-date {
+    width: 40%;
+    height: 105px;
+    float: left;
+    border-right: 1px dashed black;
+}
+
+.rating-star, .user, .date {
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    align-content: center;
+}
+
+.full-comment {
+    width: 60%;
+    height: 105px;
+    float: left;
+}
+
+.comm-title {
+    width: 100%;
+    height: 30px;
+    padding: 5px 15px 5px 15px;
+    font-size: 20px;
+    align-content: center;
+    background-image:
+        linear-gradient(to bottom right, yellow, orange);
+    border-radius: 5px 5px 5px 5px;
+}
+
+.comment-text {
+    width: 100%;
+    height: 75px;
+    padding:15px;
+    align-content: center;
 }
 
 .text-rating {
@@ -169,13 +241,14 @@ ul p {
 
 .comment {
     width: 70%;
-    height: auto;
+    height: 100px;
     padding: 25px 10px 0px 10px;
     font-size: 15px;
     float: left;
     text-align: left;
     justify-content: center;
 }
+
 
 .scrollup {
     width: 64px;
@@ -188,20 +261,14 @@ ul p {
     display: none;
 }
 
-.sticky {
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 100;
-}
-
 .comment-btn {
     width: 150px;
     height: 40px;
     margin: 15px;
     padding: 8px;
-    background-color: yellow;
+    background-image:
+            linear-gradient(yellow, orange);
+
     text-align: center;
     font-size: 15px;
     cursor: pointer;
@@ -209,7 +276,7 @@ ul p {
     border: none;
 }
 
-.comment-btn a {
+.comment-btn a:hover {
     text-decoration: none;
-    color: black;
+    background-color: orange;
 }

@@ -2,52 +2,60 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/hrating :: heading">
     <meta charset="UTF-8">
-
     <title>Ocena produktu</title>
 </head>
 <body>
-<div class="container">
-    <div class="rating-container">
-        <div>
-            <h1 th:text="${productName}"></h1>
+    <script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+
+    <div class="container">
+
+            <div th:replace="/fragments/navbar :: navbar"></div>
+
+            <div class="product-name">
+                <h1 th:text="${productName}"></h1>
+            </div>
+
+            <div class="rating-container">
+                <form th:action="@{/product/rating}" th:method="post" th:object="${createRatingCommand}">
+                    <input type="hidden" name="currentProductId" th:value="${productId}" readonly>
+                        <div class="star-container">
+                            <div class="text-star">Oceń produkt</div>
+                            <div class="stars">
+                                <input type="radio" th:field="*{rating}" id="star5" name="rating" value="5"/>
+                                <label for="star5"> One star </label>
+                                <input type="radio" th:field="*{rating}" id="star4" name="rating" value="4"/>
+                                <label for="star4"> One star </label>
+                                <input type="radio" th:field="*{rating}" id="star3" name="rating" value="3"/>
+                                <label for="star3"> One star </label>
+                                <input type="radio" th:field="*{rating}" id="star2" name="rating" value="2"/>
+                                <label for="star2"> One star </label>
+                                <input type="radio" th:field="*{rating}" id="star1" name="rating" value="1"/>
+                                <label for="star1"> One star </label>
+                            </div>
+                        </div>
+                        <div class="error-rating" th:if="${#fields.hasErrors('rating')}">
+                            <span th:each="err : ${#fields.errors('rating')}" th:text="${err}"></span>
+                        </div>
+
+                        <div class="title">
+                            <p>Tytuł:</p>
+                            <input type="text" th:field="*{title}" name="title"/>
+                        </div>
+
+                        <div class="opinion">
+                            <p>Opinia o produkcie:</p>
+                            <textarea cols="30" rows="3" th:field="*{opinion}" name="opinion">Dodaj opinię</textarea>
+                        </div>
+
+                        <div class="send-btn">
+                            <button class="rating-btn" type="submit">
+                                <i class="far fa-paper-plane">  Dodaj opinię</i>
+                            </button>
+                        </div>
+                </form>
+
+            </div>
         </div>
 
-        <div class="form">
-            <form th:action="@{/product/rating}" th:method="post" th:object="${createRatingCommand}">
-                <input type="text" name="currentProductId" th:value="${productId}" readonly>
-                    <div class="star-container">
-                        <p>Oceń produkt</p>
-                        <div class="stars">
-                            <input type="radio" th:field="*{rating}" id="star5" name="rating" value="5"/>
-                            <label for="star5"> One star </label>
-                            <input type="radio" th:field="*{rating}" id="star4" name="rating" value="4"/>
-                            <label for="star4"> One star </label>
-                            <input type="radio" th:field="*{rating}" id="star3" name="rating" value="3"/>
-                            <label for="star3"> One star </label>
-                            <input type="radio" th:field="*{rating}" id="star2" name="rating" value="2"/>
-                            <label for="star2"> One star </label>
-                            <input type="radio" th:field="*{rating}" id="star1" name="rating" value="1"/>
-                            <label for="star1"> One star </label>
-                        </div>
-                    </div>
-                    <div class="error-rating" th:if="${#fields.hasErrors('rating')}">
-                        <span th:each="err : ${#fields.errors('rating')}" th:text="${err}"></span>
-                    </div>
-                    <div class="title">
-                        <p>Tytuł:</p>
-                        <input type="text" th:field="*{title}" name="title"/>
-                    </div>
-                    <div class="opinion">
-                        <p>Opinia o produkcie:
-                            <textarea th:field="*{opinion}" name="opinion">Dodaj opinię</textarea>
-                        </p>
-                    </div>
-                <div>
-                    <button type="submit">Dodaj opinię</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 </body>
 </html>

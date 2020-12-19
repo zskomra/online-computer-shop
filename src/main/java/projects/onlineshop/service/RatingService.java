@@ -37,7 +37,8 @@ public class RatingService {
         log.debug("Dane do utworzenia oceny: {}", createRating);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String[] name = auth.getName().split("@");
+        String username = name[0];
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String commentDate = date.format(formatters);

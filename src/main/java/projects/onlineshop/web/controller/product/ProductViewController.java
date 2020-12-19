@@ -6,16 +6,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.data.CommentSummary;
+import projects.onlineshop.domain.model.Order;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.ProductRating;
 import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.domain.repository.UserRepository;
+import projects.onlineshop.service.OrderService;
 import projects.onlineshop.service.RatingService;
+import projects.onlineshop.service.UserService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,8 @@ public class ProductViewController {
 
     private final ProductRepository productRepository;
     private final RatingService ratingService;
+    private final OrderService orderService;
+    private final UserService userService;
 
 
     @GetMapping("/{id}")
@@ -51,7 +55,12 @@ public class ProductViewController {
        return "product/view";
     }
 
-
+    @RequestMapping(value = "/add", method = {RequestMethod.GET, RequestMethod.POST})
+    public String addProductToOrder(@RequestParam Long productId) {
+        log.debug("Pobrano id produktu: {}", productId);
+        orderService.addOrder(productId);
+        return "redirect:/product/view/" + productId;
+    }
 
 
 }
