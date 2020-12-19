@@ -9,6 +9,5 @@ spring:
 
 logging:
   level:
-    root: INFO
-    sql: DEBUG
+    root: WARN
     projects.onlineshop : DEBUG
