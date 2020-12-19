@@ -28,8 +28,10 @@
                     <li class="user-li"><i class="fas fa-headset"></i><p>Kontakt</p>
                         <ul class="user-ul">
                             <li class="user-li-li">
-                                <a href="#">
-                                    <i class="far fa-envelope">  Formularz kontaktu</i>
+                                <a th:href="/contact">
+                                    <form th:method="get" th:action="@{/contact/index.html}">
+                                            <i class="far fa-envelope">  Formularz kontaktu</i>
+                                    </form>
                                 </a>
                             </li>
                             <li class="user-li-li">
