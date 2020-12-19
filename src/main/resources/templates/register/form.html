@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="Rejestracja">Rejestracja</title>
+    <link th:href="@{/css/logreg.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
+<div class="center">
+    <h1>Rejestracja</h1>
     <form th:action="@{/register}" th:method="post" th:object="${registerUserCommand}">
-        <fieldset>
-            <div>
-                <label>Nazwa użytkownika:
-                    <input th:field="*{username}" type="email"/>
-                </label>
-                <div th:if="${#fields.hasErrors('username')}" th:text="${#fields.errors('username')}">
-
-                </div>
+        <div class="txt_field">
+            <input th:field="*{username}" type="email" required/>
+            <span></span>
+            <label>Nazwa użytkownika:</label>
+            <div th:if="${#fields.hasErrors('username')}" th:text="${#fields.errors('username')}">
             </div>
-            <div>
-                <label>Hasło:
-                    <input th:field="*{password}" type="password"/>
-                </label>
-                <div th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}">
-
-                </div>
+        </div>
+        <div class="txt_field">
+            <input th:field="*{password}" type="password" required/>
+            <span></span>
+            <label>Hasło:</label>
+            <div th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}">
             </div>
-        </fieldset>
-        <fieldset>
-            <div>
-                <button type="submit">Zarejestruj</button>
-            </div>
-            <div th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}"></div>
-        </fieldset>
+        </div>
+        <div>
+            <button type="submit">Zarejestruj</button>
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}"></div>
     </form>
 </div>
 </body>

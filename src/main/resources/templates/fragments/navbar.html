@@ -28,8 +28,10 @@
                     <li class="user-li"><i class="fas fa-headset"></i><p>Kontakt</p>
                         <ul class="user-ul">
                             <li class="user-li-li">
-                                <a href="#">
-                                    <i class="far fa-envelope">  Formularz kontaktu</i>
+                                <a th:href="/contact">
+                                    <form th:method="get" th:action="@{/contact/index.html}">
+                                            <i class="far fa-envelope">  Formularz kontaktu</i>
+                                    </form>
                                 </a>
                             </li>
                             <li class="user-li-li">
@@ -58,11 +60,17 @@
                                 </form>
                                 <div sec:authorize="!isAuthenticated()">
                                     <p>--- Nie masz konta? ---</p>
-                                    <button>
-                                        <a th:href="@{/register}">
-                                            <i class="user-li-li">Rejestracja</i><p></p>
-                                        </a>
+                                    <button id="registerButton"
+                                            type="button"
+                                            data-toggle="modal" data-target="#registerModal"
+                                            sec:authorize="!isAuthenticated()">
+                                        <i class="user-li-li"></i>Rejestracja<p></p>
                                     </button>
+<!--                                    <button>-->
+<!--                                        <a th:href="@{/register}">-->
+<!--                                            <i class="user-li-li">Rejestracja</i><p></p>-->
+<!--                                        </a>-->
+<!--                                    </button>-->
                                 </div>
                             </li>
                             <div sec:authorize="isAuthenticated()">
