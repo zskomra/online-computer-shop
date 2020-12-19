@@ -58,11 +58,17 @@
                                 </form>
                                 <div sec:authorize="!isAuthenticated()">
                                     <p>--- Nie masz konta? ---</p>
-                                    <button>
-                                        <a th:href="@{/register}">
-                                            <i class="user-li-li">Rejestracja</i><p></p>
-                                        </a>
+                                    <button id="registerButton"
+                                            type="button"
+                                            data-toggle="modal" data-target="#registerModal"
+                                            sec:authorize="!isAuthenticated()">
+                                        <i class="user-li-li"></i>Rejestracja<p></p>
                                     </button>
+<!--                                    <button>-->
+<!--                                        <a th:href="@{/register}">-->
+<!--                                            <i class="user-li-li">Rejestracja</i><p></p>-->
+<!--                                        </a>-->
+<!--                                    </button>-->
                                 </div>
                             </li>
                             <div sec:authorize="isAuthenticated()">
