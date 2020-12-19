@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
 
-    <link th:href="@{/css/order.css}" rel="stylesheet" type="text/css">
-
-
+<head th:include="fragments/header :: heading">
     <title>Koszyk zamówień</title>
 </head>
 <body>
-    <h1>Twoje zamówienia:</h1>
-    <div class="tbl-header">
-            <table>
+<div class="container">
+    <div th:replace="/fragments/navbar :: navbar"></div>
+    <div class="content">
+        <div class="middle">
+            <table class="table table-hover">
+                <thead class="table-header">
                 <tr>
-                    <td>Produkt:</td>
-                    <td>Cena:</td>
+                    <th scope="col">Produkt:</th>
+                    <th scope="col">Cena:</th>
                 </tr>
-            </table>
-    </div>
-    <div class="tbl-content">
-            <table>
+                </thead>
+                <tbody class="table-content">
                 <tr th:each="order : ${userOrders}">
                     <td th:text="${order.name}">Nazwa testowa</td>
                     <td th:text="${order.price}">Cena testowa</td>
                 </tr>
+                </tbody>
             </table>
-
+            <div class="table-footer">
+                <div class="table-total-items">
+                    <p>Suma: <span th:text="${orderSum}"></span>
+                    </p>
+                    <a th:href="@{'/order/purchase?orderId=' + ${order.id}}">Kupuję</a>
+                </div>
+                <div class="clear-both"></div>
+            </div>
         </div>
-    <p>Suma: <span th:text="${orderSum}"></span>
-    </p>
-    <a th:href="@{'/order/purchase?orderId=' + ${order.id}}">Kupuję</a>
+    </div>
+</div>
+<div th:replace="/fragments/footer :: footer"></div>
+
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: online-computer-shop
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:h2:mem:shopDB
+
+logging:
+  level:
+    root: INFO
+    sql: DEBUG
+    projects.onlineshop : DEBUG

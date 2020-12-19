@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Logowanie użytkownika</title>
+    <link th:href="@{/css/logreg.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div class="center">
     <h1>Logowanie użytkownika</h1>
     <div>
         <form th:action="@{/login}" method="post">
-            <fieldset>
-                <legend>Dane logowania</legend>
                 <div th:if="${param.error}">Nieprawidlowy użytkownik lub hasło!</div>
                 <div th:if="${param.logout}">Zostałeś pomyślnie wylogowany.</div>
                 <div>
-                    <label><b>Username:</b>
-                        <input type="email" name="username" placeholder="Wprowadź e-mail" required/>
-                    </label>
+                    <div class="txt_field">
+                        <input type="email" name="username" required/>
+                        <span></span>
+                        <label><b>Username:</b></label>
+                    </div>
                 </div>
                 <div>
-                    <label><b>Hasło:</b>
-                        <input type="password" name="password" placeholder="Wprowadź hasło" required/>
-                    </label>
+                    <div class="txt_field">
+                        <input type="password" name="password" required/>
+                        <span></span>
+                        <label><b>Hasło:</b></label>
+
+                    </div>
                 </div>
                 <div>
                     <button type="submit">Zaloguj</button>
                 </div>
-            </fieldset>
+
         </form>
     </div>
+</div>
 </body>
 </html>

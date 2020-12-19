@@ -38,7 +38,7 @@ public class RegisterController {
         try {
             Long id = userService.create(registerUserCommand);
             log.debug("Utworzono użytkownika: {}", id);
-            return "redirect:/login";
+            return "redirect:/home";
         }
         catch (UserAlreadyExistsException uaee) {
             bindingResult.rejectValue("username",null,"Użytkownik o podanym adresie już istnieje");
