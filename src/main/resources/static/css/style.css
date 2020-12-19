@@ -290,3 +290,15 @@
 .clear-both {
 	clear: both;
 }
+
+.add-new-object-btn {
+	width: 200px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.align-item-right {
+	display: flex;
+	justify-content: flex-end;
+}

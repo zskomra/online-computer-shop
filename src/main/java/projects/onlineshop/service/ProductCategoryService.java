@@ -10,8 +10,10 @@ import projects.onlineshop.domain.model.ProductCategory;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.exception.ProductCategoryAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCategoryCommand;
+import projects.onlineshop.web.command.EditProductCategoryCommand;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service @Slf4j @RequiredArgsConstructor
@@ -45,5 +47,28 @@ public class ProductCategoryService {
                 .stream()
                 .map((x) -> productCategoryConverter.toProductCategorySummary(x))
                 .collect(Collectors.toList());
+    }
+
+    public EditProductCategoryCommand findCategoryById(Long categoryId) {
+        ProductCategory category = productCategoryRepository.findById(categoryId).orElseThrow(IllegalArgumentException::new);
+        return productCategoryConverter.fromProductCategoryToEditProductCategoryCommand(category);
+    }
+
+    @Transactional
+    public void edit(EditProductCategoryCommand editedCategory) {
+        ProductCategory productCategory = productCategoryRepository.findById(editedCategory.getId()).orElseThrow(IllegalArgumentException::new);
+        productCategory.setName(editedCategory.getName());
+    }
+
+    public void delete(Long productCategoryId) {
+        ProductCategory category = productCategoryRepository.findById(productCategoryId).orElseThrow(IllegalArgumentException::new);
+        if (category != null) {
+            if (category.getProducts().isEmpty()) {
+                productCategoryRepository.deleteById(productCategoryId);
+                log.debug("Usunięto kategorię: {}", category);
+            } else {
+                log.debug("Nie można usunąć kategorii, ponieważ ma przypisane produkty!");
+            }
+        }
     }
 }

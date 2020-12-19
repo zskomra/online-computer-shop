@@ -9,10 +9,11 @@
 
     <div class="content">
         <div class="middle form form-label">
-            <form th:action="@{/product-category/add}" th:method="post" th:object="${createProductCategoryCommand}">
+            <form th:action="@{/product-category/edit}" th:method="post" th:object="${editedCategory}">
                 <div class="form-group">
                     <label for="categoryName" class="form-field">Nazwa kategorii
-                        <input id="categoryName" th:field="*{name}" type="text" class="form-control form-field"/>
+                        <input th:value="${editedCategory.name}"
+                               id="categoryName" th:field="*{name}" type="text" class="form-control form-field"/>
                     </label>
                     <div class="alert alert-danger" role="alert"
                          th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}">
@@ -25,6 +26,7 @@
                 </div>
                 <div class="alert alert-danger" role="alert"
                      th:if="${#fields.hasGlobalErrors()}" th:value="${#fields.globalErrors()}"></div>
+                <input type="hidden" th:field="*{id}" th:value="${editedCategory.id}">
             </form>
         </div>
     </div>
