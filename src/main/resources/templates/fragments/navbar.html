@@ -127,6 +127,19 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- ================================================================================= -->
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="user-li">
+                        <i class="fas fa-users-cog"></i><p>Zarządzanie obiektami</p>
+                        <ul class="user-ul">
+                            <li class="user-li-li">
+                                <button>
+                                    <a th:href="@{/product-category/list}">
+                                        <i class="user-li-li">Kategorie produktów</i><p></p>
+                                    </a>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
                 </ol>
             </div>
 

@@ -1,4 +1,4 @@
-package projects.onlineshop.web.controller;
+package projects.onlineshop.web.controller.product_category;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class AddNewProductCategoryController {
         try {
             productCategoryService.create(category);
             log.debug("Utworzono kategorię produktu: {}", category);
-            return "product-category/list";
+            return "redirect:/product-category/list";
         } catch (RuntimeException re) {
             log.warn(re.getLocalizedMessage());
             log.debug("Błąd podczas tworzenia kategorii produktu", re);

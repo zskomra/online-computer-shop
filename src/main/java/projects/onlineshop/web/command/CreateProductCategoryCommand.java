@@ -14,6 +14,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CreateProductCategoryCommand {
 
-    @NotNull @Size(min = 5, max = 30)
+    @NotNull @Size(min = 3, max = 30)
     private String name;
 }
