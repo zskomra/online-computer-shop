@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <head th:include="fragments/header :: heading">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Contact</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body class="contact-details-body">
+    <div th:replace="/fragments/navbar :: navbar"></div>
+        <div class = "details-form">
+             <h1>Formularz kontaktowy</h1>
+        </div>
 
-<h2>Formularz kontaktowy</h2>
+    <div class="contact-form-data">
 
-<form th:action="@{/contact}" th:method="post" th:object="${contactCommand}">
-    <label>Temat</label><br>
-    <input placeholder="Wpisz temat" type="text" th:field="*{topic}">
-    <br>
-    <label>Adres email</label><br>
-    <input placeholder="Wpisz adres email" type="email" th:field="*{email}">
-    <br>
-    <label>Wiadomość: </label><br>
-    <textarea type="text" placeholder="Wpisz treść wiadomości" th:field="*{description}">
-  </textarea>
-    <br>
-    <input type="submit" value="Submit">
-</form>
+        <form th:action="@{/contact}" th:method="post" th:object="${contactCommand}">
+            <label>Temat</label><br>
+            <input placeholder="Wpisz temat" type="text" th:field="*{topic}">
+            <br>
+            <label>Adres email</label><br>
+            <input placeholder="Wpisz adres email" type="email" th:field="*{email}">
+            <br>
+            <label>Wiadomość: </label><br>
+            <textarea placeholder="Wpisz treść wiadomości" type="text" th:field="*{description}"></textarea>
+            <br>
+            <button class="contact-btn" type="submit">Wyślij</button>
+        </form>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+
+    <script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+    <script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/home.js}"></script>
+    <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
