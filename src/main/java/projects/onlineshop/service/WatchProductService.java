@@ -28,10 +28,11 @@ public class WatchProductService {
 
     @Transactional
     public boolean addToWatch (Long productId) {
+        Long id = productId;
         User user = userService.getLoggedUser();
         log.debug("Pobrano uzytkownika: {}", user.getUsername());
 
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(id);
         log.debug("Pobrano produkt: {}", product.getName());
 
         WatchProduct watchProduct = user.getWatchProduct();
@@ -52,10 +53,11 @@ public class WatchProductService {
 
     @Transactional
     public boolean confirmDeleteProduct(Long productId) {
+        Long id = productId;
         User user = userService.getLoggedUser();
         log.debug("Pobrano uzytkownika: {}", user.getUsername());
 
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(id);
         log.debug("Pobrano produkt: {}", product.getName());
 
         WatchProduct watchProduct = watchProductRepository.getOne(productId);;

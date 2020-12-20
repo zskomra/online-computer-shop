@@ -48,19 +48,16 @@ public class ProductViewController {
 
     @RequestMapping(value = "/add", method = {RequestMethod.GET, RequestMethod.POST})
     public String addProductToOrder(@RequestParam Long productId) {
-        Long id = productId;
-        log.debug("Pobrano id produktu: {}", id);
-        orderService.addOrder(id);
-        return "product/view";
+        log.debug("Pobrano id produktu: {}", productId);
+        orderService.addOrder(productId);
+        return "redirect:/product/view/"+productId;
     }
 
     @RequestMapping(value = "/save", method = {RequestMethod.GET, RequestMethod.POST})
     public String saveProductToWatch(@RequestParam Long productId) {
-        Long id = productId;
-        log.debug("Pobrano id: {}", id);
-        watchProductService.addToWatch(id);
-        return "product/view";
+        log.debug("Pobrano id: {}", productId);
+        watchProductService.addToWatch(productId);
+        return "redirect:/product/view/"+productId;
     }
-
-
+    
 }
