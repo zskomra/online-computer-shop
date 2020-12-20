@@ -21,15 +21,18 @@ public class ProductRating {
 
     @Column(nullable = false)
     private Integer rating;
+    @Column(nullable = false)
+    private String title;
     @Column(nullable = true)
     private String opinion;
-    @Column(name = "date_purchase")
-    private LocalDate datePurchase;
+    @Column(name = "date_comment")
+    private String dateComment;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne(mappedBy = "rating", fetch = FetchType.EAGER)
-    private User user;
+    @Column(name = "username")
+    private String username;
+
 }

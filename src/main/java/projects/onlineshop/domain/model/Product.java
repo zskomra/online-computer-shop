@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -39,9 +40,11 @@ public class Product {
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
 
-
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "rating_id")
     private Set<ProductRating> productRating;
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
+    private Set<WatchProduct> watchProducts = new HashSet<>();
 
 }

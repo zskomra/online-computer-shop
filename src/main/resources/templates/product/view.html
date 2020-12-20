@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/hview :: heading">
+    <meta charset="UTF-8">
+    <title th:text="${productName}"></title>
+
+</head>
+<body>
+
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+
+    <div class="container">
+        <div th:replace="/fragments/navbar :: navbar"></div>
+        <a href="?roll" class="scrollup"></a>
+        <div class="link-to-back">
+            <a th:href="@{/product/list}">
+                <img th:src="@{/images/previous.png}" style="width: 64px; height: 64px" alt="Wróc">
+            </a>
+        </div>
+        <div class="presentation">
+            <div class="product">
+                <p th:text="${productName}">Testowa nazwa</p>
+                <img th:src="@{/images/podzespoly.png}" style="width: 408px; height: 308px">
+            </div>
+            <div class="product-option">
+                <div class="option">
+                    <p th:text="${productPrice + ' zł'} ">Cena</p>
+                    <div th:with="addOrder=@{/product/view/add}" class="to-cart">
+                        <form method="post" th:action="@{${addOrder}}">
+                            <input type="hidden" name="productId" th:value="${productId}"/>
+                            <button type="submit">
+                                <i class="fas fa-cart-plus"> Dodaj do koszyka</i>
+                            </button>
+                        </form>
+                    </div>
+                    <div th:with="addToWatch=@{/product/view/save}" class="to-watch">
+                        <form method="post" th:action="@{${addToWatch}}">
+                            <input type="hidden" name="productId" th:value="${productId}"/>
+                            <button type="submit">
+                                <i class="far fa-heart"> Zapamiętaj</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mini-panel">
+            <ul>
+                <a id="link1" href="#desc-link">Opis i dane</a>
+            </ul>
+            <ul>
+                <a id="link2" href="#rati-link">Opinie</a>
+            </ul>
+        </div>
+        <div class="descript-contener">
+            <div class="description" id="desc-link">
+                <p class="nav-text">Opis i dane</p>
+                <p th:text="${productDescription}"></p>
+            </div>
+
+<!-- komentarze---------------------------------------------------------------------------------- -->
+            <div class="rating" id="rati-link">
+                <p class="nav-opinion">Opinie:</p>
+                <div class="add-button">
+                    <a th:href="@{'/product/rating/' + ${productId}}">
+                       <button class="comment-btn">
+                           <i class="far fa-comment"></i> Dodaj komentarz
+                       </button>
+                    </a>
+                </div>
+                <div class="comment-list">
+                    <div class="single-comment"  th:each="rating : ${allRating}">
+                        <tr>
+                            <td>
+                                <div class="rating-date">
+                                    <div class="rating-star" >
+                                       <p th:text="'Ocena: ' + ${rating.rating} +'/5'">4</p>
+                                    </div>
+                                    <div class="user">
+                                        <p th:text="'Dodał: ' + ${rating.username}">Użytkownik</p>
+                                    </div>
+                                    <div class="date">
+                                        <p th:text="'Data dodania: ' + ${rating.dateComment}">12.10.2020</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="full-comment">
+                                    <div class="comm-title">
+                                        <h2 th:text="${rating.title}"></h2>
+                                    </div>
+                                    <div class="comment-text">
+                                        <p th:text="${rating.opinion}">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Nam ornare in libero sit amet pretium. Sed nulla augue,
+                                            aliquet quis gravida non, vehicula at magna.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

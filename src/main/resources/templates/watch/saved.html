@@ -1,36 +1,41 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="fragments/header :: heading">
-    <title>Koszyk zamówień</title>
+    <title>Obserwowane produkty</title>
 </head>
 <body>
 <div class="container">
     <div th:replace="/fragments/navbar :: navbar"></div>
+    <div class="link-to-back">
+        <a th:href="@{/product/list}">
+            <img th:src="@{/images/previous.png}" style="width: 64px; height: 64px" alt="Wróc">
+        </a>
+    </div>
     <div class="content">
         <div class="middle">
             <table class="table table-hover">
                 <thead class="table-header">
                 <tr>
-                    <th scope="col">Produkt:</th>
-                    <th scope="col">Cena:</th>
+                    <th scope="col">Obserwowane produkty:</th>
                 </tr>
                 </thead>
                 <tbody class="table-content">
-                <tr th:each="order : ${userOrders}">
-                    <td th:text="${order.name}">Nazwa testowa</td>
-                    <td th:text="${order.price}">Cena testowa</td>
+                <tr th:each="watched : ${watchList}">
+                    <td>
+                        <a th:href="@{'/product/view/' + ${watched.id}}">
+                             <div th:text="${watched.name}">testow nazwa</div>
+                        </a>
+                    </td>
+
+                    <td>
+                        <button type="submit" class="delete-btn">
+                           <a th:href="@{'/watch/delete?productId=' + ${watched.id}}">Usuń</a>
+                        </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-            <div class="table-footer">
-                <div class="table-total-items">
-                    <p>Suma: <span th:text="${orderSum}"></span>
-                    </p>
-                    <a th:href="@{'/order/purchase?orderId=' + ${order.id}}">Kupuję</a>
-                </div>
-                <div class="clear-both"></div>
-            </div>
         </div>
     </div>
 </div>

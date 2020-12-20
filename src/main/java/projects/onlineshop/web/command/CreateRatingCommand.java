@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +16,11 @@ public class CreateRatingCommand {
     @NotNull
     private Integer rating;
 
+    @NotNull
+    @Size(max = 24)
+    private String title;
+
     @Size(max = 160)
     private String opinion;
-
-    @NotNull
-    private LocalDate datePurchase;
-
-    @NotNull
-    private Long userId;
-
-    @NotNull
-    private Long productId;
+    private Long currentProductId;
 }

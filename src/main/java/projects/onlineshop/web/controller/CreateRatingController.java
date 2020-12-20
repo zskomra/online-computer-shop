@@ -1,13 +1,14 @@
 package projects.onlineshop.web.controller;
 
+import com.mysql.cj.xdevapi.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.service.RatingService;
 import projects.onlineshop.web.command.CreateRatingCommand;
 
@@ -20,15 +21,25 @@ import javax.validation.Valid;
 public class CreateRatingController {
 
     public final RatingService ratingService;
+    private final ProductRepository productRepository;
 
-    @GetMapping
-    public String newProductRating(Model model) {
+    @GetMapping("/{id}")
+    public String newProductRating(Model model,
+                                   @PathVariable(name = "id") Long id) {
+        Product product = productRepository.getOne(id);
         model.addAttribute("createRatingCommand", new CreateRatingCommand());
+        model.addAttribute("productName", product.getName());
+        model.addAttribute("productId",product.getId());
         return "product/rating";
     }
 
     @PostMapping
-    public String addNewProductRating(@Valid CreateRatingCommand createRating, BindingResult bindingResult){
+    public String addNewProductRating(@Valid CreateRatingCommand createRating,
+                                      BindingResult bindingResult){
+
+        Product product = productRepository.getOne(createRating.getCurrentProductId());
+        String number = product.getId().toString();
+
         log.debug("Dane oceny produktu: {}", createRating);
         if(bindingResult.hasErrors()) {
             log.debug("Bład danych: {}", bindingResult.getAllErrors());
@@ -36,18 +47,15 @@ public class CreateRatingController {
         }
 
         try {
-            Long createId = ratingService.ratingCreate(createRating);
-            log.debug("Utworzono opinię o id: {}",createId);
-            return "redirect:/product/list";
+            ratingService.ratingCreate(createRating, product);
+            log.error("Utworzono opinię o id");
+            return "redirect:/product/view/" + number;
         }
         catch (RuntimeException re) {
-            log.warn(re.getLocalizedMessage());
-            log.debug("Błąd tworzenia oceny produktu", re);
+            log.error(re.getLocalizedMessage());
+            log.error("Błąd tworzenia oceny produktu", re);
             bindingResult.rejectValue(null, null,"Błąd oceny");
-            return "product/rating";
+            return "redirect:/product/list";
         }
-
     }
-
-
 }

@@ -1,9 +1,7 @@
 * {
 	font-family: 'Open Sans', sans-serif;
 	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-  }
+}
 
 .container {
 	background-color: white;
@@ -166,7 +164,7 @@
 	float: left;
 	padding: 4px;
 }
- /*Menu dolne ----------------------------------------------------------------------- */
+/*Menu dolne ----------------------------------------------------------------------- */
 
 .menu-nav {
 	padding: 0;
@@ -202,16 +200,16 @@
 /*kontent ----------------------------------------------------------------------- */
 
 .content {
-    width: 100%;
-    text-align: center;
+	width: 100%;
+	text-align: center;
 	margin-top: 10px;
 }
 
 .left, .right,.middle {
 	text-align: left;
 	width: 100%;
-    margin: 0 auto;
-    padding: 3px;
+	margin: 0 auto;
+	padding: 3px;
 }
 
 .content h1 {
@@ -238,8 +236,6 @@
 	color: #fff;
 	background-color: black;
 	line-height: 50px;
-	position: fixed;
-	bottom: 0px;
 }
 
 .form {
@@ -296,133 +292,8 @@
 	clear: both;
 }
 
-.contact-details-body{
-	font-family:sans-serif;
-	margin-top:40px;
-}
-.details-form{
-	width:500px;
-	margin: auto;
-	color: #FFFFFF;
-	padding: 10px 0px 10px 0px;
-	text-align: center;
-	border-radius: 15px 15px 0px 0px;
-	height: 50px;
-	background-color: rgb(62, 146, 255);
-	background-position:center;
-}
-.details-form-data{
-	color:#F3EAE8;
-	background-color: rgb(62, 146, 255);
-	width: 500px;
-	margin: auto;
-	text-align: center;
-	border-radius: 0px 0px 15px 15px;
-	background-position:center;
-}
-.details-form h1{
-	color: #F3EAE8;
-	position: relative;
-	top: 8px;
-	font-size: 32px;
-}
-.form-input{
-	border-radius: 6px;
-	font-size: 16px;
-	line-height: 30px;
-	background: #F0F0F0;
-	margin: 10px;
-	width: 200px;
-	position: relative;
-	padding: 0 12px;
-	left: 100px;
-
-}
-
-.details-form-data label{
-	font-size: 20px;
-	font-weight: 500;
-	margin: 10px;
-	line-height: 30px;
-	position: absolute;
-	padding: 0 580px;
-	left: 100px;
-}
-.details-btn{
-	width: 80%;
-	height: 50px;
-	border: 1px solid;
-	background: #1529ad;
-	border-radius: 25px;
-	font-size: 18px;
-	color: white;
-	font-weight: 700;
-	cursor: pointer;
-	outline: none;
-	margin: 10px;
-}
-
-.contact-btn{
-	width: 40%;
-	height: 30px;
-	border: 1px solid;
-	background: #1529ad;
-	border-radius: 25px;
-	font-size: 18px;
-	color: white;
-	font-weight: 700;
-	cursor: pointer;
-	outline: none;
-	margin: 10px;
-}
-
-.contact-form-data{
-	color:#F3EAE8;
-	background-color: rgb(62, 146, 255);
-	width: 500px;
-	margin: auto;
-	text-align: center;
-	border-radius: 0px 0px 15px 15px;
-	background-position:center;
-}
-
-.contact-form-data label{
-	font-size: 20px;
-	font-weight: 500;
-
-}
-.contact-form-data input{
-	height: 25px;
-	width: 80%;
-	border-radius: 8px;
-	font-size: 20px;
-	font-weight: 500;
-}
-
-.contact-form-data textarea{
-	width: 80%;
-	height: 200px;
-	border-radius: 8px;
-	font-size: 20px;
-	font-weight: 500;
-}
-
-.add-new-object-btn {
-	width: 200px;
-	text-align: center;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.align-item-right {
-	display: flex;
-	justify-content: flex-end;
-}
-
 .btn-list {
 	text-decoration: none;
 	border: none;
 	background-color: transparent;
-
 }
-

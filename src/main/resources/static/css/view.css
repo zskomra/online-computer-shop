@@ -1,0 +1,290 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: white;
+    min-height: 200vh;
+}
+
+.presentation{
+    width: 80%;
+    height: 500px;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 5px 5px 20px darkgrey;
+}
+
+.product {
+    width: 50%;
+    height: 450px;
+    margin-left: 10%;
+    margin-right: 50px;
+    margin-top: 20px;
+    padding: 2px;
+    float: left;
+}
+
+.product p {
+    margin-bottom: 40px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+}
+
+.product img {
+    width: 100%;
+    justify-content: center;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.product-option {
+    width: 25%;
+    height: 400px;
+    margin: 30px;
+    padding: 2px;
+    float: left;
+    box-shadow: 5px 5px 20px darkgrey;
+    border-radius: 5px 5px 5px 5px;
+}
+.option {
+    justify-content: center;
+    display: block;
+    padding-top: 30%;
+    padding-bottom: 50%;
+}
+
+.option p {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 20%;
+    padding-top: 25px;
+}
+
+.to-cart button {
+    width: 75%;
+    justify-content: center;
+    display: block;
+    margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image:
+            linear-gradient(to bottom right, deepskyblue, blueviolet);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+}
+.to-watch button {
+    width: 75%;
+    justify-content: center;
+    display: block;
+    margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image:
+            linear-gradient(to bottom right, red, firebrick);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.mini-panel {
+    height: 45px;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.mini-panel a, .mini-panel a:visited {
+    text-decoration: none;
+    color: darkgray;
+}
+
+.mini-panel a:hover {
+    border-bottom: 2px solid yellow;
+    color: black;
+}
+
+.mini-panel ul {
+    width: 150px;
+    margin: 0;
+    list-style-type: none;
+    font-size: 20px;
+    height: 30px;
+    line-height: 150%;
+    display: inline-block;
+    letter-spacing: 2px;
+}
+
+.mini-panel ul p {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.descript-contener {
+    width: 80%;
+    overflow:hidden;
+    height:2%;
+    padding-bottom: 25px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 20px darkgrey;
+}
+
+.description {
+    height: auto;
+    justify-content: center;
+    display: block;
+    padding: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+
+.rating {
+    height: 150px;
+    width: 100%;
+    justify-content: center;
+    display: block;
+    padding: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+
+.nav-text {
+    font-size: 30px;
+    border-bottom: 1px solid darkgrey;
+    padding-bottom: 10px;
+
+}
+
+.nav-opinion {
+    font-size: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.single-comment {
+    width: 100%;
+    height: 125px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
+    box-shadow: 5px 5px 20px darkgrey;
+}
+
+.rating-date {
+    width: 40%;
+    height: 105px;
+    float: left;
+    border-right: 1px dashed black;
+}
+
+.rating-star, .user, .date {
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    align-content: center;
+}
+
+.full-comment {
+    width: 60%;
+    height: 105px;
+    float: left;
+}
+
+.comm-title {
+    width: 100%;
+    height: 30px;
+    padding: 5px 15px 5px 15px;
+    font-size: 20px;
+    align-content: center;
+    background-image:
+        linear-gradient(to bottom right, yellow, orange);
+    border-radius: 5px 5px 5px 5px;
+}
+
+.comment-text {
+    width: 100%;
+    height: 75px;
+    padding:15px;
+    align-content: center;
+}
+
+.text-rating {
+    width: 20%;
+    height: auto;
+    font-size: 30px;
+    padding: 25px 10px 0px 10px;
+    float: left;
+    text-align: center;
+}
+
+.comment {
+    width: 70%;
+    height: 100px;
+    padding: 25px 10px 0px 10px;
+    font-size: 15px;
+    float: left;
+    text-align: left;
+    justify-content: center;
+}
+
+.link-to-back {
+    position: absolute;
+    left: 100px;
+    top: 250px;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.scrollup {
+    width: 64px;
+    height: 64px;
+    text-decoration: none;
+    background: url("/images/up.png") no-repeat 0px 0px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    display: none;
+}
+
+.comment-btn {
+    width: 150px;
+    height: 40px;
+    margin: 15px;
+    padding: 8px;
+    background-image:
+            linear-gradient(yellow, orange);
+
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+    border: none;
+}
+
+.comment-btn a:hover {
+    text-decoration: none;
+    background-color: orange;
+}

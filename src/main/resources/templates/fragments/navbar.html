@@ -107,7 +107,10 @@
                     </li>
                     <!-- ================================================================================= -->
                     <li class="user-li">
-                        <i class="far fa-heart"></i><p>Twoje listy</p>
+                        <form th:method="get" th:action="@{/watch/saved}">
+                            <button class="far fa-heart btn-list"  type="submit"></button>
+                        </form>
+                        <p>Twoje listy</p>
                         <ul class="user-ul">
                             <li class="user-li-li">
                                 <p>Brak obserwowanych</p>
@@ -117,7 +120,7 @@
                     <!-- ================================================================================= -->
                     <li class="user-li">
                         <form th:method="get" th:action="@{/order/list}">
-                            <button class="fas fa-shopping-basket" type="submit">
+                            <button class="fas fa-shopping-basket btn-list" type="submit">
                             </button>
                         </form>
                         <p>Twój koszyk</p>
