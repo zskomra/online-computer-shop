@@ -7,7 +7,7 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body class="contact-details-body">
-    <div th:replace="/fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
         <div class = "details-form">
              <h1>Formularz kontaktowy</h1>
         </div>
@@ -27,7 +27,7 @@
             <button class="contact-btn" type="submit">Wyślij</button>
         </form>
     </div>
-    <div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="fragments/footer :: footer"></div>
 
     <script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
     <script th:src="@{/js/jquery-1.11.3.min.js}"></script>

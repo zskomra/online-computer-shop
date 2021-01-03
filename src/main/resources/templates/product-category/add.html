@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="/fragments/header :: heading">
+<head th:include="fragments/header :: heading">
     <title>Dodaj kategorię produktu</title>
 </head>
 <body>
 <div class="container">
-    <div th:replace="/fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="content">
         <div class="middle form form-label">
@@ -30,7 +30,7 @@
     </div>
 </div>
 </div>
-<div th:replace="/fragments/footer :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 
 <script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
