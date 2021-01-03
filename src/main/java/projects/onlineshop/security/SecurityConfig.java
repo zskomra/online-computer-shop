@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/product/rating", "/product/rating/*").permitAll()
                 .antMatchers("/contact").permitAll()
                 .antMatchers("/contact/confirm").permitAll()
-                .antMatchers("/home").permitAll()
+                .antMatchers("/home/**").permitAll()
                 .antMatchers("/images/*").permitAll()
                 .antMatchers("/css/*").permitAll()
                 .antMatchers("/js/*").permitAll()

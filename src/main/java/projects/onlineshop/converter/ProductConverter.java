@@ -17,7 +17,6 @@ public class ProductConverter {
 
     public Product from (CreateProductCommand command) {
         return Product.builder()
-                .id(command.getId())
                 .name(command.getName())
                 .description(command.getDescription())
                 .category(productCategoryRepository.getOne(command.getCategoryId()))
