@@ -23,7 +23,11 @@
                         </thead>
                         <tbody class="table-content">
                             <tr th:each="product : ${products}">
-                                <td th:text="${product.name}"></td>
+                                <td>
+                                    <a th:href="@{'/product/view/' + ${product.id}}">
+                                        <p th:text="${product.name}">Nazwa testowa</p>
+                                    </a>
+                                </td>
                                 <td th:text="${product.category.name}"></td>
                                 <td th:text="${product.price}"></td>
                                 <td th:with="addOrder=@{/order/add}">
