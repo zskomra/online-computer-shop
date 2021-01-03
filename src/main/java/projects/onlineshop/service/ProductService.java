@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.ProductConverter;
 import projects.onlineshop.data.ProductSummary;
 import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.exception.ProductAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCommand;
@@ -23,6 +24,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Transactional
     public Long create(CreateProductCommand product) {
@@ -70,5 +72,9 @@ public class ProductService {
         Product product =productRepository.getById(id);
         log.debug("Pobrano produkt: {}", product);
         return product;
+    }
+
+    public List<Product> getProductsByCategory(Long productCategoryId) {
+        return productRepository.getAllByCategoryId(productCategoryId);
     }
 }
