@@ -14,8 +14,6 @@ import projects.onlineshop.web.command.CreateRatingCommand;
 @RequiredArgsConstructor
 public class RatingConverter {
 
-    private final ProductRepository productRepository;
-    private final UserRepository userRepository;
 
     public CommentSummary fromRatingToCommentSummary(ProductRating productRating) {
         return CommentSummary.builder()
@@ -29,6 +27,7 @@ public class RatingConverter {
     }
 
     public ProductRating from(CreateRatingCommand createRating, Product product, String username, String date) {
+        if(createRating == null) throw new IllegalArgumentException("Create rating command cannot be null");
         return ProductRating.builder()
                 .id(product.getId())
                 .rating(createRating.getRating())

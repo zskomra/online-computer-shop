@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "product_rating")
 @Data
 @AllArgsConstructor @NoArgsConstructor
-@Builder @EqualsAndHashCode(of = "id")
+@Builder @EqualsAndHashCode
 @ToString(exclude = "user")
 public class ProductRating {
 

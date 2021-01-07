@@ -10,6 +10,7 @@ import projects.onlineshop.web.command.EditProductCategoryCommand;
 public class ProductCategoryConverter {
 
     public ProductCategory from(CreateProductCategoryCommand createProductCategoryCommand) {
+        if(createProductCategoryCommand == null) throw  new IllegalArgumentException("Create rating command cannot be null");
         return ProductCategory.builder()
                 .name(createProductCategoryCommand.getName())
                 .build();
