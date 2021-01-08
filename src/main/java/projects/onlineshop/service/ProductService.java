@@ -45,21 +45,32 @@ public class ProductService {
 
     @Transactional
     public Page<Product> getAllProducts(int pageNum, String sortField, String sortDir) {
-        int pageSize = 4;
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
-                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        Pageable pageable = getSortedPageable(pageNum, sortField, sortDir);
 
         return productRepository.findAll(pageable);
     }
 
+    private Pageable getSortedPageable(int pageNum, String sortField, String sortDir) {
+        int pageSize = 10;
+        Pageable pageable;
+
+        if (sortField.equals("category")) {
+             pageable= PageRequest.of(pageNum - 1, pageSize,
+                    sortDir.equals("asc") ? Sort.by("category.name").ascending() : Sort.by("category.name").descending());
+        } else {
+             pageable = PageRequest.of(pageNum - 1, pageSize,
+                    sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        }
+
+        return pageable;
+    }
+
     @Transactional
     public Page<Product> getAllProductsFiltered(int pageNum, String sortField, String sortDir, String regex) {
-        int pageSize = 4;
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
-                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        Pageable sortedPageable = getSortedPageable(pageNum, sortField, sortDir);
 
         String trimRegex = regex.trim();
-        return productRepository.findAllByNameContaining(pageable, trimRegex);
+        return productRepository.findAllByNameContaining(sortedPageable, trimRegex);
     }
 
     public List<ProductSummary> mapProductsToProductsSummaries(Page<Product> allProducts) {

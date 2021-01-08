@@ -3,6 +3,7 @@ package projects.onlineshop.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(of = "name")
-public class ProductCategory {
+public class ProductCategory{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
