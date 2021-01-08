@@ -28,7 +28,7 @@ public class OrderController {
         Long id = productId;
         log.debug("Pobrano id produktu: {}", id);
         orderService.addOrder(id);
-        return "redirect:/product/list";
+        return "redirect:/order/list";
     }
 
 
