@@ -13,6 +13,9 @@ import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.exception.ProductAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCommand;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,13 +33,15 @@ public class ProductService {
     public Long create(CreateProductCommand product) {
         log.debug("Dane do utworzenia produktu: {}", product);
 
-        if(productRepository.existsByName(product.getName())) {
+        if (productRepository.existsByName(product.getName())) {
             log.debug("Produkt o podanej nazwie istnieje w bazie");
             throw new ProductAlreadyExistsException(
                     String.format("Produkt o nazwie %s już istnieje", product.getName()));
         }
 
         Product productToSave = productConverter.from(product);
+        productToSave.setAddDate(LocalDate.now());
+        log.debug("Dodane date utworzenia: {}", productToSave.getAddDate());
         productRepository.save(productToSave);
         log.debug("Zapisano produkt: {}", productToSave);
 
@@ -55,10 +60,10 @@ public class ProductService {
         Pageable pageable;
 
         if (sortField.equals("category")) {
-             pageable= PageRequest.of(pageNum - 1, pageSize,
+            pageable = PageRequest.of(pageNum - 1, pageSize,
                     sortDir.equals("asc") ? Sort.by("category.name").ascending() : Sort.by("category.name").descending());
         } else {
-             pageable = PageRequest.of(pageNum - 1, pageSize,
+            pageable = PageRequest.of(pageNum - 1, pageSize,
                     sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
         }
 
@@ -80,7 +85,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        Product product =productRepository.getById(id);
+        Product product = productRepository.getById(id);
         log.debug("Pobrano produkt: {}", product);
         return product;
     }
@@ -88,4 +93,12 @@ public class ProductService {
     public List<Product> getProductsByCategory(Long productCategoryId) {
         return productRepository.getAllByCategoryId(productCategoryId);
     }
+
+    public List<Product> getLast5AddedProductsSortedByDate() {
+
+        List<Product> allProducts = productRepository.findTop5ByOrderByAddDateDesc();
+
+        return allProducts;
+    }
+
 }

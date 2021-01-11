@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product getById(Long id);
     Page<Product> findAllByNameContaining(Pageable pageable, String regex);
 
-
+    List<Product> findTop5ByOrderByAddDateDesc ();
     List<Product> getAllByCategoryId(Long productCategoryId);
 
 }

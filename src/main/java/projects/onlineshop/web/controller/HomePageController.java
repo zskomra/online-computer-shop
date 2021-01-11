@@ -23,7 +23,10 @@ public class HomePageController {
     private final ProductRepository productRepository;
 
     @GetMapping
-    public String getMainPage() {
+    public String getMainPage(Model model) {
+        List<Product> getLast5Added = productService.getLast5AddedProductsSortedByDate();
+        log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added);
+        model.addAttribute("last5Products",getLast5Added);
         return "home/main";
     }
 
