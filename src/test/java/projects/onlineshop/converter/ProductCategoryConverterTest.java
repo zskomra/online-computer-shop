@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryConverterTest {
 
     ProductCategoryConverter cut;
-    ProductCategorySummary cuts;
+    ProductCategorySummary categorySummary;
 
     @BeforeEach
     void setUp() {
         cut = new ProductCategoryConverter();
-        cuts = new ProductCategorySummary();
+        categorySummary = new ProductCategorySummary();
     }
 
     @Test

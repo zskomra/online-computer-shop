@@ -32,8 +32,10 @@ public class UserService {
 
     @Transactional
     public Long create(RegisterUserCommand registerUserCommand) {
-        User userToCreate = userConverter.from(registerUserCommand);
         log.debug("Dane użytkownika do zapisu: {}", registerUserCommand);
+
+        User userToCreate = userConverter.from(registerUserCommand);
+        log.debug("Dane użytkownika do zapisu: {}", userToCreate);
         if(userRepository.existsByUsername(userToCreate.getUsername())){
             throw new UserAlreadyExistsException(String.format("Użytkownik %s już istnieje", userToCreate.getUsername()));
         }
