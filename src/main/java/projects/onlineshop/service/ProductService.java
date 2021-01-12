@@ -8,16 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.converter.ProductConverter;
 import projects.onlineshop.data.ProductSummary;
 import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.domain.model.ProductRating;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.domain.repository.ProductRepository;
+import projects.onlineshop.domain.repository.RatingRepository;
 import projects.onlineshop.exception.ProductAlreadyExistsException;
 import projects.onlineshop.web.command.CreateProductCommand;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +29,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
     private final ProductCategoryRepository productCategoryRepository;
+    private final RatingRepository ratingRepository;
 
     @Transactional
     public Long create(CreateProductCommand product) {
@@ -101,4 +103,10 @@ public class ProductService {
         return allProducts;
     }
 
-}
+
+    public List<Product> top5ratedProducts (){
+        return productRepository.findTop5RatedProducts(PageRequest.of(0,5));
+
+            }
+    }
+

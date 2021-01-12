@@ -23,6 +23,7 @@ public class StartupDataLoader {
     private final ProductRepository productRepository;
     private final UserDetailsRepository userDetailsRepository;
     private final OrderRepository orderRepository;
+    private final RatingRepository ratingRepository;
 
     @EventListener
     public void onStartupPrepareData(ContextRefreshedEvent event) {
@@ -234,6 +235,98 @@ public class StartupDataLoader {
 
         orderRepository.save(Order.builder()
                 .user(userRepository.getUsersByUsername("admin@admin.pl"))
+                .build());
+    }
+
+    public void load() {
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Intel Core i7-10700KF"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Intel Core i3-10100F"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Intel Core i9-10850K"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("LG 29WL50S-B HDR10"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Acer EK240YABI czarny"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Microsoft All-in-One Media Keyboard"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Apple Magic Keyboard z Polem Numerycznym White"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(4)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("A4Tech KV-300H Slim szaro-czarna USB"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(1)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("Zotac GeForce GTX 1650 Gaming AMP CORE GDDR6 4GB"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(5)
+                .build());
+
+        ratingRepository.save(ProductRating.builder()
+                .username("klient1@user.pl")
+                .product(productRepository.getProductsByName("SilentiumPC Supremo FM2 750W 80 Plus Gold"))
+                .dateComment("")
+                .opinion("some opinion")
+                .title("some title")
+                .rating(3)
                 .build());
     }
 
