@@ -59,7 +59,7 @@ class UserServiceTest {
     void shouldReturnSuccessResponseForValidRegistrationCommand() {
         RegisterUserCommand registerUserCommand = DataHelper.registerUserCommand("user@user.pl", "pa55word");
         User user = DataHelper.user("user@user.pl", "pa55word", new UserDetails());
-        when(userConverter.from(registerUserCommand)).thenReturn(user);
+            when(userConverter.from(registerUserCommand)).thenReturn(user);
         when(userRepository.existsByUsername("user@user.pl")).thenReturn(false);
         when(userRepository.save(user)).thenAnswer(invocation -> {
             User userToSave = invocation.getArgument(0, User.class);
