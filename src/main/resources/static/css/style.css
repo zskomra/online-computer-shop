@@ -219,7 +219,7 @@
 }
 
 .recomended, .news, .chosen {
-	height: 150px;
+	height: auto;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	border-radius: 5px 5px 5px 5px;

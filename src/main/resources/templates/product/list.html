@@ -23,13 +23,13 @@
                     </a>
                 </th>
                 <th scope="col">Kategoria produktu
-                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
+                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
                         <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>
                 </th>
                 <th scope="col">Cena produktu
-                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
+                    <a th:href="@{'/product/list/filter/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir} + '&searchRegex=' + ${searchRegex}}">
                         <i class="fas fa-angle-double-down" th:if="${sortDir.equals('desc')}"></i>
                         <i class="fas fa-angle-double-up" th:if="${sortDir.equals('asc')}"></i>
                     </a>

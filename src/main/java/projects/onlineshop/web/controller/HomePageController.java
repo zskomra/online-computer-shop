@@ -7,11 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.ProductCategory;
+import projects.onlineshop.domain.model.ProductRating;
 import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.domain.repository.ProductRepository;
 import projects.onlineshop.service.ProductService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller @Slf4j
 @RequestMapping("/home")
@@ -23,7 +25,14 @@ public class HomePageController {
     private final ProductRepository productRepository;
 
     @GetMapping
-    public String getMainPage() {
+    public String getMainPage(Model model) {
+        List<Product> getLast5Added = productService.getLast5AddedProductsSortedByDate();
+        log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added);
+        model.addAttribute("last5Products",getLast5Added);
+
+        List<Product> productRatings = productService.top5ratedProducts();
+        model.addAttribute("top5Products",productRatings);
+        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
         return "home/main";
     }
 
