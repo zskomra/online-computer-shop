@@ -2,13 +2,20 @@ package projects.onlineshop.converter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import projects.helpers.DataHelper;
+import projects.onlineshop.domain.model.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
+import projects.onlineshop.domain.model.WatchProduct;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("User Converter Specification")
@@ -21,41 +28,75 @@ class UserConverterTest {
         cut = new UserConverter();
     }
 
-    @Test
-    @DisplayName("- should convert valid registration command to user")
-    void shouldConvertValidRegistrationCommand () {
-        RegisterUserCommand command = DataHelper.registerUserCommand("user@user.pl","user");
+    @DisplayName("1. Converting from registration command")
+    @Nested
+    class ConvertingFromRegistrationCommand {
 
-        User result = cut.from(command);
 
-        User expected = DataHelper.user("user@user.pl","user", new UserDetails());
+        @DisplayName("- should convert valid registration command to user")
+        @Test
+        void shouldConvertValidRegistrationCommandToUser(){
+            RegisterUserCommand command = DataHelper.registerUserCommand("user@user.pl","s3cr3t");
 
-        assertEquals(expected, result);
+            User result = cut.from(command);
+
+            assertAll("provided values are set and same as command",
+                    () -> assertNotNull(result),
+                    () -> assertEquals("user@user.pl",result.getUsername()),
+                    () -> assertEquals("s3cr3t",result.getPassword()));
+        }
+        @DisplayName("- should convert to user with default values set")
+        @Test
+        void shouldConvertToUserWithDefaultValuesSet () {
+            RegisterUserCommand command = DataHelper.registerUserCommand("user@user.pl","s3cr3t");
+
+            User result = cut.from(command);
+
+            assertEquals(false,result.getActive());
+            assertNull(result.getRoles());
+            assertNull(result.getUserDetails());
+            assertNull(result.getOrder());
+        }
+
+        @DisplayName("- should raise an error when no data provided")
+        @Test
+        void shouldRaiseAnErrorWhenNoDataProvided(){
+            RegisterUserCommand command = null;
+
+            assertThatThrownBy(() -> cut.from(command))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("Register user command cannot be null")
+                    .hasNoCause();
+        }
     }
 
-    @Test
-    @DisplayName("- should raise exception when converting from null")
-    void shouldRaiseExceptionWhenConvertingFromNull() {
-        RegisterUserCommand command = null;
+    @DisplayName("2. Converting from Edit User Command")
+    @Nested
+    class ConvertingFromEditUserCommand {
 
-        assertThrows(IllegalArgumentException.class, () -> cut.from(command));
-    }
-
-
-    @Test
-    @DisplayName("- should convert valid user details command to user details")
-    void shouldConvertValidUserDetailsCommandToUserDetails() {
-        User expectedUser = DataHelper.user("user@user.pl","user", new UserDetails());
-
-        EditUserCommand command = DataHelper.editUserCommand("87-140","Chełmża","Bydgoska",
+        @DisplayName("- should convert valid user details command to user details")
+        @Test
+        void shouldConvertValidUserDetailsCommandToUserDetails() {
+            EditUserCommand command = DataHelper.editUserCommand("87-140","Chełmża","Bydgoska",
                 9,10,"Nowa","Jan" );
+            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct());
 
-        UserDetails expected = DataHelper.userDetails("87-140","Chełmża","Bydgoska",
-                9,10,"Nowa","Jan" );
+            UserDetails expected = DataHelper.userDetails("87-140","Chełmża","Bydgoska",9,10,"Nowa","Jan");
+            UserDetails actual = cut.from(command, user);
 
-        UserDetails result = cut.from(command , expectedUser);
+            assertEquals(expected,actual);
+        }
 
-        assertEquals(expected,result);
+        @DisplayName("- should not change user details when convert from empty edit user command")
+        @Test
+        void shouldNotChangeUserDetailsWhenConvertFromEmptyEditUserCommand(){
+            EditUserCommand command = new EditUserCommand();
+            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct());
 
+            UserDetails actual = cut.from(command, user);
+            UserDetails expected = DataHelper.userDetails(null,null,null,null,null,null,null);
+
+            assertEquals(expected,actual);
+        }
     }
 }

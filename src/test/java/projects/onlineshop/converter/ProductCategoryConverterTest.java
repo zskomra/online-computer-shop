@@ -32,10 +32,7 @@ class ProductCategoryConverterTest {
                 .name("Laptopy")
                 .build();
 
-        ProductCategory expected = ProductCategory.builder()
-                .name("Laptopy")
-                .build();
-
+        ProductCategory expected = ProductCategory.builder().name("Laptopy").build();
         ProductCategory actual = cut.from(categoryCommand);
 
         assertEquals(expected,actual);
@@ -45,10 +42,12 @@ class ProductCategoryConverterTest {
     @DisplayName("- should convert valid product category to product category summmary")
     void shouldConvertValidCategoryToProductCategorySummary(){
         ProductCategory productCategory = ProductCategory.builder()
+                .id(2L)
                 .name("Laptopy")
                 .build();
 
         ProductCategorySummary expected = ProductCategorySummary.builder()
+                .id(2L)
                 .name("Laptopy")
                 .build();
 

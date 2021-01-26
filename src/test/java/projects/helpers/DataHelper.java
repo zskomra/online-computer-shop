@@ -4,6 +4,7 @@ import projects.onlineshop.domain.model.*;
 import projects.onlineshop.web.command.*;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class DataHelper {
 
@@ -16,6 +17,19 @@ public class DataHelper {
 
     public static User user(String username, String password, UserDetails userDetails ) {
         return User.builder()
+                .username(username)
+                .password(password)
+                .userDetails(userDetails)
+                .build();
+    }
+
+    public static User user(Long id, String username, String password, UserDetails userDetails, Order order, Boolean active, Set<String> roles, WatchProduct watchProduct ) {
+        return User.builder()
+                .id(id)
+                .order(order)
+                .active(active)
+                .roles(roles)
+                .watchProduct(watchProduct)
                 .username(username)
                 .password(password)
                 .userDetails(userDetails)
@@ -73,8 +87,9 @@ public class DataHelper {
                 .build();
     }
 
-    public static Product product(String name, String description, ProductCategory productCategory, Long price) {
+    public static Product product(Long id,String name, String description, ProductCategory productCategory, Long price) {
         return Product.builder()
+                .id(id)
                 .name(name)
                 .description(description)
                 .category(productCategory)

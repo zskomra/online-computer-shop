@@ -29,7 +29,6 @@ public class RatingConverter {
     public ProductRating from(CreateRatingCommand createRating, Product product, String username, String date) {
         if(createRating == null) throw new IllegalArgumentException("Create rating command cannot be null");
         return ProductRating.builder()
-                .id(product.getId())
                 .rating(createRating.getRating())
                 .title(createRating.getTitle())
                 .opinion(createRating.getOpinion())
@@ -37,5 +36,32 @@ public class RatingConverter {
                 .product(product)
                 .username(username)
                 .build();
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//        if(createRating == null) throw new IllegalArgumentException("Create rating command cannot be null");
+//        return ProductRating.builder()
+//                .id(product.getId())
+//                .rating(createRating.getRating())
+//                .title(createRating.getTitle())
+//                .opinion(createRating.getOpinion())
+//                .dateComment(date)
+//                .product(product)
+//                .username(username)
+//                .build();

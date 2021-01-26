@@ -27,6 +27,7 @@ public class User {
     private String username;
     private String password;
 
+    @Builder.Default
     private Boolean active = Boolean.FALSE;
 
     @ElementCollection(fetch = FetchType.EAGER)

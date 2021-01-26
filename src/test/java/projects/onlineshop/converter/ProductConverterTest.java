@@ -14,6 +14,7 @@ import projects.onlineshop.domain.repository.ProductCategoryRepository;
 import projects.onlineshop.web.command.CreateProductCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
@@ -51,14 +52,10 @@ class ProductConverterTest {
 
         when(categoryRepository.getOne(1L)).thenReturn(productCategory);
 
-        Product expected = DataHelper.product("Acer","Super nowy czarno-różowy laptop",productCategory,2000L);
-
+        Product expected = DataHelper.product(2L,"Acer","Super nowy czarno-różowy laptop",productCategory,2000L);
         Product actual = cut.from(productCommand);
 
         assertEquals(expected,actual);
-        assertEquals(expected.getPrice(),actual.getPrice());
-        assertEquals(expected.getCategory().getId(),actual.getCategory().getId());
-        assertEquals(expected.getDescription(), actual.getDescription());
     }
 
     @Test
@@ -66,7 +63,10 @@ class ProductConverterTest {
     void shouldRaiseExceptionWhenConvertingFromNull() {
         CreateProductCommand command = null;
 
-        assertThrows(IllegalArgumentException.class, () -> cut.from(command));
+        assertThatThrownBy(() -> cut.from(command))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Create product command cannot be null")
+                .hasNoCause();
     }
 
 }
