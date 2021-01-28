@@ -45,7 +45,7 @@ public class ProductCategoryService {
     public List<ProductCategorySummary> getAllCategories() {
         return productCategoryRepository.findAll()
                 .stream()
-                .map((x) -> productCategoryConverter.toProductCategorySummary(x))
+                .map(productCategoryConverter::toProductCategorySummary)
                 .collect(Collectors.toList());
     }
 
@@ -55,20 +55,23 @@ public class ProductCategoryService {
     }
 
     @Transactional
-    public void edit(EditProductCategoryCommand editedCategory) {
+    public String edit(EditProductCategoryCommand editedCategory) {
         ProductCategory productCategory = productCategoryRepository.findById(editedCategory.getId()).orElseThrow(IllegalArgumentException::new);
         productCategory.setName(editedCategory.getName());
+        return productCategory.getName();
     }
-
-    public void delete(Long productCategoryId) {
+    @Transactional
+    public boolean delete(Long productCategoryId) {
         ProductCategory category = productCategoryRepository.findById(productCategoryId).orElseThrow(IllegalArgumentException::new);
         if (category != null) {
             if (category.getProducts().isEmpty()) {
                 productCategoryRepository.deleteById(productCategoryId);
                 log.debug("Usunięto kategorię: {}", category);
+                return true;
             } else {
                 log.debug("Nie można usunąć kategorii, ponieważ ma przypisane produkty!");
             }
         }
+        return false;
     }
 }

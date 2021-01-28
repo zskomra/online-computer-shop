@@ -15,11 +15,10 @@ public class DataHelper {
         return command;
     }
 
-    public static User user(String username, String password, UserDetails userDetails ) {
+    public static User user(String username, String password) {
         return User.builder()
                 .username(username)
                 .password(password)
-                .userDetails(userDetails)
                 .build();
     }
 

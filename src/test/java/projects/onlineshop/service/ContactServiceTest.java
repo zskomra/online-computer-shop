@@ -4,9 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,8 +21,9 @@ import javax.mail.internet.MimeMessage;
 
 import java.util.Date;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisplayName("Contact service specification")
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +38,8 @@ class ContactServiceTest {
     @Mock
     ContactRepository contactRepository;
 
+    @Captor
+    ArgumentCaptor<Contact> contactCaptor;
 
     @InjectMocks
     ContactService cut;
@@ -53,34 +54,43 @@ class ContactServiceTest {
     }
 
     @Test
-    void send() throws MessagingException {
+    @DisplayName("- should send mail when provided data are correct")
+    void shouldSendMailWhenProvidedDataAreCorrect() throws MessagingException {
         ContactCommand command = DataHelper.contactCommand("Temat", "Przykładowy opis","user@user.pl");
         Contact contact = DataHelper.contact("Temat", "Przykładowy opis","user@user.pl",
                 String.format("From user: %s \nProblem desctiption: %s","user@user.pl","Przykładowy opis"));
-        ContactConverter contactConverter = Mockito.mock(ContactConverter.class);
-        Mockito.lenient().when(contactConverter.from(command)).thenReturn(contact);
 
-        MimeMessage mimeMessage = new MimeMessage((Session)null);
+        Mockito.when(contactConverter.from(command)).thenReturn(contact);
+        MimeMessage mimeMessage = Mockito.mock(MimeMessage.class);
         Mockito.when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        MimeMessageHelper mimeMessageHelper = Mockito.mock(MimeMessageHelper.class);
-        mimeMessageHelper.setFrom(contact.getEmail());
-        mimeMessageHelper.setTo("exampletestacc36@gmail.com");
-        mimeMessageHelper.setSubject(contact.getTopic());
-        mimeMessageHelper.setText(contact.getContentForAdmin());
-        mimeMessageHelper.setSentDate(new Date());
-
-
-
-        Mockito.when(contactRepository.save(contact)).thenAnswer(invocation -> {
-            Contact contactToSave = invocation.getArgument(0, Contact.class);
-            contactToSave.setId(1L);
-            return contactToSave;
+        Mockito.when(contactRepository.save(contactCaptor.capture()))
+                .thenAnswer(invocation -> {
+                    Contact contactToSave = invocation.getArgument(0, Contact.class);
+                    contactToSave.setId(1L);
+                    return contactToSave;
         });
 
-
         Boolean success = cut.send(command);
-//
-//        assertTrue(success);
+        Contact contactSaved = contactCaptor.getValue();
+
+        verify(javaMailSender).send(mimeMessage);
+        verify(javaMailSender,times(1)).send(mimeMessage);
+        assertTrue(success);
+        assertEquals(1L,contactSaved.getId());
+    }
+
+    @Test
+    @DisplayName("- should return unsuccessful response when contact command cannot be converted")
+    void shouldReturnUnsuccessfulResponseWhenContactCommandCannotBeConverted() throws MessagingException {
+        when(contactConverter.from(null)).thenThrow(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> cut.send(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasNoCause();
+
+        verifyNoInteractions(javaMailSender);
+        verifyNoInteractions(contactRepository);
+
 
     }
 }

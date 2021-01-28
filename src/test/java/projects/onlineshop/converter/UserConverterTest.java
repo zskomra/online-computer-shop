@@ -9,6 +9,7 @@ import projects.onlineshop.domain.model.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
+import projects.onlineshop.exception.UnconvertibleDataException;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
@@ -64,8 +65,8 @@ class UserConverterTest {
             RegisterUserCommand command = null;
 
             assertThatThrownBy(() -> cut.from(command))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("Register user command cannot be null")
+                    .isInstanceOf(UnconvertibleDataException.class)
+                    .hasMessageContaining("Cannot convert from null")
                     .hasNoCause();
         }
     }

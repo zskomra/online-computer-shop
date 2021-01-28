@@ -31,20 +31,21 @@ public class OrderService {
 
     @Transactional
     public boolean addOrder (Long productId) {
-    User user = userService.getLoggedUser();
-    log.debug("Pobrano uzytkownika: {}", user.getUsername());
-    Product product = productService.getProductById(productId);
-    log.debug("Pobrano produkt: {}", product.getName());
-    Order order = user.getOrder();
-    log.debug("Pobrano koszyk: {}", order);
-    List<Product> products = user.getOrder().getProducts();
-    log.debug("Pobrano produkty: {}" ,products.size());
-    products.add(product);
-    log.debug("Dodano produkt: {}", product.getName());
-    log.debug("Produkty w koszyku: {}", products.size());
-    userRepository.save(user);
-    log.debug("Zapisano koszyk: {}", true);
-        return true;
+        if(userService.getLoggedUser() == null) throw new IllegalStateException("Option for logged users");
+            User user = userService.getLoggedUser();
+            log.debug("Pobrano uzytkownika: {}", user.getUsername());
+            Product product = productService.getProductById(productId);
+            log.debug("Pobrano produkt: {}", product.getName());
+            Order order = user.getOrder();
+            log.debug("Pobrano koszyk: {}", order);
+            List<Product> products = user.getOrder().getProducts();
+            log.debug("Pobrano produkty: {}" ,products.size());
+            products.add(product);
+            log.debug("Dodano produkt: {}", product.getName());
+            log.debug("Produkty w koszyku: {}", products.size());
+            userRepository.save(user);
+            log.debug("Zapisano koszyk: {}", true);
+                return true;
     }
 
 
