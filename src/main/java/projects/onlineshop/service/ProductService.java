@@ -103,6 +103,7 @@ public class ProductService {
         return allProducts;
     }
 
+<<<<<<< HEAD
 
     public List<Product> top5ratedProducts (){
         return productRepository.findTop5RatedProducts(PageRequest.of(0,5));
@@ -110,3 +111,38 @@ public class ProductService {
             }
     }
 
+=======
+    public Set<Product> getRecommend() {
+
+        Set<Product> productToRecommend = new HashSet<>();
+
+        productToRecommend.add(randomProductToSet());
+        int count = 0;
+
+        while (count < 3) {
+            Product temporary = randomProductToSet();
+            if (!isEquals(temporary, productToRecommend)) {
+                productToRecommend.add(temporary);
+                count++;
+            }
+        }
+        return productToRecommend;
+    }
+
+    private boolean isEquals(Product temporary, Set<Product> productToRecommend) {
+        for (Product product : productToRecommend) {
+            if (temporary.getId().equals(product.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Product randomProductToSet() {
+        List<Product> allProducts = productRepository.findAll();
+        Random randIndex = new Random();
+
+        return allProducts.get(randIndex.nextInt(allProducts.size()));
+    }
+}
+>>>>>>> #12 opsg :: add panel with random choice product for user

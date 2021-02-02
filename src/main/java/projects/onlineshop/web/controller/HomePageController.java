@@ -28,11 +28,19 @@ public class HomePageController {
     public String getMainPage(Model model) {
         List<Product> getLast5Added = productService.getLast5AddedProductsSortedByDate();
         log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added);
+
+        Set<Product> getRecommended4Products = productService.getRecommend();
+        log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products);
+
         model.addAttribute("last5Products",getLast5Added);
+<<<<<<< HEAD
 
         List<Product> productRatings = productService.top5ratedProducts();
         model.addAttribute("top5Products",productRatings);
         log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
+=======
+        model.addAttribute("recommended4Product", getRecommended4Products);
+>>>>>>> #12 opsg :: add panel with random choice product for user
         return "home/main";
     }
 
@@ -90,6 +98,5 @@ public class HomePageController {
         }
         return productRepository.findAll();
     }
-
 
 }
