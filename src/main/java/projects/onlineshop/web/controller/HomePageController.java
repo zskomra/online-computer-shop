@@ -33,14 +33,7 @@ public class HomePageController {
         log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products);
 
         model.addAttribute("last5Products",getLast5Added);
-<<<<<<< HEAD
-
-        List<Product> productRatings = productService.top5ratedProducts();
-        model.addAttribute("top5Products",productRatings);
-        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
-=======
         model.addAttribute("recommended4Product", getRecommended4Products);
->>>>>>> #12 opsg :: add panel with random choice product for user
         return "home/main";
     }
 
