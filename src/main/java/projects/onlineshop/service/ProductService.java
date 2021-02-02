@@ -103,15 +103,7 @@ public class ProductService {
         return allProducts;
     }
 
-<<<<<<< HEAD
 
-    public List<Product> top5ratedProducts (){
-        return productRepository.findTop5RatedProducts(PageRequest.of(0,5));
-
-            }
-    }
-
-=======
     public Set<Product> getRecommend() {
 
         Set<Product> productToRecommend = new HashSet<>();
@@ -145,4 +137,3 @@ public class ProductService {
         return allProducts.get(randIndex.nextInt(allProducts.size()));
     }
 }
->>>>>>> #12 opsg :: add panel with random choice product for user
