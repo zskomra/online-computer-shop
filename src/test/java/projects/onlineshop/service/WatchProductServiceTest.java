@@ -67,7 +67,7 @@ class WatchProductServiceTest {
                             .products(new HashSet<>())
                             .build());
             user.getWatchProduct().getProducts().add(product);
-            
+
             when(userService.getLoggedUser()).thenReturn(user);
             when(productService.getProductById(3L)).thenReturn(product);
 

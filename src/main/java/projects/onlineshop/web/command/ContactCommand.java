@@ -16,7 +16,7 @@ public class ContactCommand {
 
     @NotBlank @Size(min = 5)
     private String topic;
-    @Email
+    @Email @NotBlank
     private String email;
     @NotBlank @Size(min = 5)
     private String description;
