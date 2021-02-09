@@ -1,5 +1,6 @@
 package projects.onlineshop.web.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -38,10 +39,11 @@ class RegisterControllerTest {
 
     String endpoint = "/register";
 
+
     @Nested
     @DisplayName("1. on Get request")
     class GetRequest {
-
+        @Disabled
         @DisplayName("- should got registration view on GET request")
         @Test
         void test1() throws Exception {
@@ -51,7 +53,7 @@ class RegisterControllerTest {
                     .andExpect(MockMvcResultMatchers.view().name("register/form"));
 //                    .andExpect(MockMvcResultMatchers.model().attribute("data",new RegisterUserCommand()));
         }
-
+        @Disabled
         @DisplayName("- should allow anonymous user")
         @Test
         void test2() throws Exception {
@@ -82,7 +84,7 @@ class RegisterControllerTest {
             verify(userService,times(1)).create(command);
 
         }
-
+        @Disabled
         @DisplayName("- should stay on registration view with errors for invalid data")
         @ParameterizedTest
         @CsvSource({

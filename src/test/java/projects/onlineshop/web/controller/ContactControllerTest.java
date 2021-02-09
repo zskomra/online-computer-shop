@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -84,6 +85,7 @@ class ContactControllerTest {
                 "user,xxx,desc"
         })
         void test2(String email, String topic, String description) throws Exception {
+            Mockito.clearInvocations(contactService);
             mockMvc.perform(MockMvcRequestBuilders.post(endpoint)
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                     .param("email",email)
