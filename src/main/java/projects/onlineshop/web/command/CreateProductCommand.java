@@ -24,6 +24,7 @@ public class CreateProductCommand {
     private String name;
 
     @Size(max = 600)
+    @NotNull
     private String description;
 
     @NotNull

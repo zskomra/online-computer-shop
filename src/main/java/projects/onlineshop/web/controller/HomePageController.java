@@ -32,8 +32,12 @@ public class HomePageController {
         Set<Product> getRecommended4Products = productService.getRecommend();
         log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products);
 
+        List<Product> productRatings = productService.top5ratedProducts();
+        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
+
         model.addAttribute("last5Products",getLast5Added);
         model.addAttribute("recommended4Product", getRecommended4Products);
+        model.addAttribute("top5Products",productRatings);
         return "home/main";
     }
 

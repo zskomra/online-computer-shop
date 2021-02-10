@@ -16,6 +16,7 @@ public class ProductConverter {
     private final ProductCategoryConverter productCategoryConverter;
 
     public Product from (CreateProductCommand command) {
+        if(command == null) throw new IllegalArgumentException("Create product command cannot be null");
         return Product.builder()
                 .name(command.getName())
                 .description(command.getDescription())
