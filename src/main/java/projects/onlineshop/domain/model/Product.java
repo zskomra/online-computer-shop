@@ -14,7 +14,7 @@ import java.util.*;
 @Entity
 @Table(name = "products")
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode(of = {"name","description","price","category"})
 public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

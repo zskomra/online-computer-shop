@@ -15,6 +15,7 @@ import projects.onlineshop.domain.model.ProductRating;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.repository.RatingRepository;
 import projects.onlineshop.exception.RatingAlreadyExistException;
+import projects.onlineshop.security.AuthenticatedUser;
 import projects.onlineshop.web.command.CreateRatingCommand;
 
 import java.time.LocalDate;
@@ -30,14 +31,15 @@ public class RatingService {
 
     private final RatingConverter ratingConverter;
     private final RatingRepository ratingRepository;
+    private final AuthenticatedUser authenticatedUser;
 
 
     @Transactional
     public Long ratingCreate(CreateRatingCommand createRating, Product product) {
         log.debug("Dane do utworzenia oceny: {}", createRating);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String[] name = auth.getName().split("@");
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String[] name = authenticatedUser.getUsername().split("@");
         String username = name[0];
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");

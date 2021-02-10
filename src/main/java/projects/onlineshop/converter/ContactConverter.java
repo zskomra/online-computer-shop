@@ -11,6 +11,7 @@ public class ContactConverter {
 
 
     public Contact from(ContactCommand contactCommand) {
+        if(contactCommand == null) throw new IllegalArgumentException("Contact command cannot be null");
         return Contact.builder()
                 .email(contactCommand.getEmail())
                 .topic(contactCommand.getTopic())

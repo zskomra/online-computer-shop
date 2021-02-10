@@ -13,6 +13,7 @@ import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
+import projects.onlineshop.security.AuthenticatedUser;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
@@ -29,11 +30,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticatedUser authenticatedUser;
 
     @Transactional
     public Long create(RegisterUserCommand registerUserCommand) {
-        User userToCreate = userConverter.from(registerUserCommand);
         log.debug("Dane użytkownika do zapisu: {}", registerUserCommand);
+
+        User userToCreate = userConverter.from(registerUserCommand);
+        log.debug("Dane użytkownika do zapisu: {}", userToCreate);
         if(userRepository.existsByUsername(userToCreate.getUsername())){
             throw new UserAlreadyExistsException(String.format("Użytkownik %s już istnieje", userToCreate.getUsername()));
         }
@@ -58,7 +62,8 @@ public class UserService {
 
     @Transactional
     public boolean editUserDetails(EditUserCommand editUserCommand) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = authenticatedUser.getUsername();
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userToEdit = userRepository.getUsersByUsername(username);
         log.debug("Pobrano uzytkownika do edycji : {}", username);
         userConverter.from(editUserCommand, userToEdit);
@@ -67,13 +72,13 @@ public class UserService {
     }
 
     public UserDetails getCurrentUserDetails() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = authenticatedUser.getUsername();
         User user = userRepository.getUsersByUsername(username);
         return user.getUserDetails();
     }
 
     public User getLoggedUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = authenticatedUser.getUsername();
         return userRepository.getUsersByUsername(username);
     }
 }

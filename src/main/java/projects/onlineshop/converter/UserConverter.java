@@ -7,12 +7,16 @@ import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
+import static projects.onlineshop.converter.ConverterUtils.requiredNotNull;
+
 @Component
 @Slf4j
 public class UserConverter {
 
 
     public User from(RegisterUserCommand registerUserCommand) {
+        requiredNotNull(registerUserCommand);
+//        if(registerUserCommand == null) throw new IllegalArgumentException("Register user command cannot be null");
         return User.builder()
                 .username(registerUserCommand.getUsername())
                 .password(registerUserCommand.getPassword())
