@@ -28,11 +28,12 @@ public class HomePageController {
     public String getMainPage(Model model) {
         List<Product> getLast5Added = productService.getLast5AddedProductsSortedByDate();
         log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added);
-        model.addAttribute("last5Products",getLast5Added);
 
-        List<Product> productRatings = productService.top5ratedProducts();
-        model.addAttribute("top5Products",productRatings);
-        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
+        Set<Product> getRecommended4Products = productService.getRecommend();
+        log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products);
+
+        model.addAttribute("last5Products",getLast5Added);
+        model.addAttribute("recommended4Product", getRecommended4Products);
         return "home/main";
     }
 
@@ -90,6 +91,5 @@ public class HomePageController {
         }
         return productRepository.findAll();
     }
-
 
 }

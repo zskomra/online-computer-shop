@@ -13,43 +13,23 @@
 
 		<div class="left"></div>
 		<div class="middle">
-			<div class="recomended">
-				<h1>Polecane</h1>
-				<div>
-					<table class="table table-hover">
-						<thead class="table-header">
-						<tr>
-							<th scope="col">Nazwa produktu</th>
-							<th scope="col">Kategoria produktu</th>
-							<th scope="col">Cena produktu</th>
-							<th>Koszyk</th>
-						</tr>
-						</thead>
-						<tbody class="table-content">
-						<tr th:each="product : ${top5Products}">
-							<td>
-								<a th:href="@{'/product/view/' + ${product.id}}">
-									<p th:text="${product.name}">Nazwa testowa</p>
-								</a>
-							</td>
-							<td th:text="${product.category.name}"></td>
-							<td th:text="${product.price}"></td>
-							<td th:with="addOrder=@{/order/add}">
-								<form method="post" th:action="@{${addOrder}}">
-									<input type="hidden" name="productId" th:value="${product.id}"/>
-									<button type="submit" class="waves-effect waves-light btn-small">
-										Dodaj
-									</button>
-								</form>
-							</td>
-						</tr>
-						</tbody>
-					</table>
+			<div class="recommended">
+				<h1 class="title-window">Polecane produkty</h1>
+				<div th:each="recommend : ${recommended4Product}" class="recommended-product">
+					<a th:href="@{'/product/view/' + ${recommend.id}}">
+						<div clas="recommended-product-image">
+							<img th:src="@{/images/component.jpg}" width="150px" height="150px">
+						</div>
+						<div class="recommended-product-content">
+							<div class="product-name" th:text="${recommend.name}"></div>
+							<div class="product-price" th:text="${recommend.price   + ' zł'}"></div>
+						</div>
+					</a>
 				</div>
 			</div>
-	
+
 			<div class="news">
-				<h1>Nowości</h1>
+				<h1 class="title-window">Nowości</h1>
 				<table class="table table-hover">
 					<thead class="table-header">
 					<tr>
@@ -82,7 +62,7 @@
 			</div>
 	
 			<div class="chosen">
-				<h1>Wybrane dla Ciebie</h1>
+				<h1 class="title-window">Wybrane dla Ciebie</h1>
 				<div>
 					lista wybranych
 				</div>
