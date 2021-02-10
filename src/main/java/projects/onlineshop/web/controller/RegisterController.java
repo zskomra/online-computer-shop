@@ -25,12 +25,12 @@ public class RegisterController {
 
     @GetMapping
     public String getRegister(Model model){
-        model.addAttribute("data",new RegisterUserCommand());
+        model.addAttribute(new RegisterUserCommand());
         return "register/form";
     }
 
     @PostMapping
-    public String processRegister(@ModelAttribute("data") @Valid RegisterUserCommand registerUserCommand, BindingResult bindingResult) {
+    public String processRegister(@Valid RegisterUserCommand registerUserCommand, BindingResult bindingResult) {
         log.debug("Dane do utworzenia użytkownika: {}", registerUserCommand);
         if(bindingResult.hasErrors()) {
             log.debug("Błędne dane użytkownika: {}" , registerUserCommand);
