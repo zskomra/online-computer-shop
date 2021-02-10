@@ -103,6 +103,11 @@ public class ProductService {
         return allProducts;
     }
 
+    public List<Product> top5ratedProducts (){
+        return productRepository.findTop5RatedProducts(PageRequest.of(0,5));
+
+    }
+
 
     public Set<Product> getRecommend() {
 
