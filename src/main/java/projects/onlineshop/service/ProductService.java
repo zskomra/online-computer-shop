@@ -104,7 +104,7 @@ public class ProductService {
     }
 
     public List<Product> top5ratedProducts (){
-        return productRepository.findTop5RatedProducts(PageRequest.of(0,5));
+        return productRepository.findTopRatedProducts(PageRequest.of(0,5));
 
     }
 

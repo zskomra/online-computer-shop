@@ -34,6 +34,7 @@ public class StartupDataLoader {
         loadOrderData();
         loadProductCategoryData();
         loadProductData();
+        load();
 
         log.info("Startup data loaded");
     }
@@ -245,7 +246,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(5)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -263,7 +264,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(3)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -272,7 +273,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(2)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -281,7 +282,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(1)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -290,7 +291,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(3)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -299,7 +300,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(4)
+                .rating(2)
                 .build());
 
         ratingRepository.save(ProductRating.builder()
@@ -317,7 +318,7 @@ public class StartupDataLoader {
                 .dateComment("")
                 .opinion("some opinion")
                 .title("some title")
-                .rating(5)
+                .rating(2)
                 .build());
 
         ratingRepository.save(ProductRating.builder()

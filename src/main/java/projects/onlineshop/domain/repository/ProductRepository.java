@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getAllByCategoryId(Long productCategoryId);
 
     @Query(value = "SELECT  pr.product, avg (pr.rating) from ProductRating pr group by pr.product order by avg(pr.rating)desc " )
-    List<Product> findTop5RatedProducts(Pageable pageable);
+    List<Product> findTopRatedProducts(Pageable pageable);
 
 
 }
