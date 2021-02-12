@@ -53,6 +53,12 @@ public class OrderController {
         log.debug("Koszyk usunieto : {}", success);
         return "redirect:/order/list";
     }
+
+    @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deleteProductFromOrder(@RequestParam Long productId) {
+        orderService.deleteProductFromCart(productId);
+        return "redirect:/order/list";
+    }
 }
 
 

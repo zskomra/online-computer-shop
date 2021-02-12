@@ -67,4 +67,16 @@ public class OrderService {
         orderRepository.save(order);
         return true;
     }
+
+    public boolean deleteProductFromCart(Long productId) {
+        User user = userService.getLoggedUser();
+        Order userCart = orderRepository.getByUserUsername(user.getUsername());
+        Product productById = productService.getProductById(productId);
+        List<Product> products = userCart.getProducts();
+        if(!products.contains(productById))
+            return false;
+        products.remove(productById);
+        orderRepository.save(userCart);
+        return true;
+    }
 }

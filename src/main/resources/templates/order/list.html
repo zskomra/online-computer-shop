@@ -17,9 +17,18 @@
                 </tr>
                 </thead>
                 <tbody class="table-content">
-                <tr th:each="order : ${userOrders}">
-                    <td th:text="${order.name}">Nazwa testowa</td>
-                    <td th:text="${order.price}">Cena testowa</td>
+                <tr th:each="product : ${userOrders}">
+                    <td>
+                        <a th:href="@{'/product/view/' + ${product.id}}">
+                            <p th:text="${product.name}">Nazwa testowa</p>
+                        </a>
+                    </td>
+                    <td th:text="${product.price}">Cena testowa</td>
+                    <td>
+                        <button type="submit" class="delete-btn">
+                            <a th:href="@{'/order/delete?productId=' + ${product.id}}">Usuń</a>
+                        </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>

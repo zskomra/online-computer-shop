@@ -11,6 +11,7 @@ import projects.onlineshop.domain.model.*;
 import projects.onlineshop.domain.repository.OrderRepository;
 import projects.onlineshop.domain.repository.UserRepository;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -99,5 +100,52 @@ class OrderServiceTest {
 
         }
 
+    }
+
+    @Nested
+    @DisplayName("3. Confirm Delete Product from Cart")
+    class DeleteProductFromCart {
+
+        @Test
+        @DisplayName("- should remove product from cart")
+        void test1() {
+            Product product = DataHelper.product(3L, "Mouse", "Crazy new mouse", new ProductCategory(), 200L);
+            Order order = Order.builder()
+                    .id(4L)
+                    .products(new ArrayList<>(List.of(product)))
+                    .build();
+            User user = DataHelper.user("user@user.pl","password");
+            user.setOrder(order);
+
+            when(userService.getLoggedUser()).thenReturn(user);
+            when(productService.getProductById(3L)).thenReturn(product);
+            when(orderRepository.getByUserUsername("user@user.pl")).thenReturn(order);
+
+            boolean result = cut.deleteProductFromCart(3L);
+
+            assertTrue(result);
+            assertEquals(0,order.getProducts().size());
+        }
+        @Test
+        @DisplayName("- should do nothing when cart do not contain product")
+        void test2(){
+            Product product = DataHelper.product(3L, "Mouse", "Crazy new mouse", new ProductCategory(), 200L);
+            Product product2 = DataHelper.product(5L, "Cat", "Spooky new cat", new ProductCategory(), 100L);
+            Order order = Order.builder()
+                    .id(4L)
+                    .products(new ArrayList<>(List.of(product2)))
+                    .build();
+            User user = DataHelper.user("user@user.pl","password");
+            user.setOrder(order);
+
+            when(userService.getLoggedUser()).thenReturn(user);
+            when(productService.getProductById(3L)).thenReturn(product);
+            when(orderRepository.getByUserUsername("user@user.pl")).thenReturn(order);
+
+            boolean result = cut.deleteProductFromCart(3L);
+
+            assertFalse(result);
+            assertEquals(1,order.getProducts().size());
+        }
     }
 }

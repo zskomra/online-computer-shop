@@ -20,7 +20,6 @@ public class EditUserCommand {
     private String zipCode;
     @NotBlank
     private String town;
-    @NotBlank
     private String street;
     @NotNull
     private Integer homeNumber;

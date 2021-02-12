@@ -27,12 +27,12 @@ public class UserConverter {
         log.debug("Dane do zmiany : {}" , editUserCommand);
         UserDetails userDetails = userToEdit.getUserDetails();
         userDetails.setFirstName(editUserCommand.getFirstName());
-        userDetails.setFlatNumber(editUserCommand.getFlatNumber());
         userDetails.setHomeNumber(editUserCommand.getHomeNumber());
         userDetails.setLastName(editUserCommand.getLastName());
-        userDetails.setStreet(editUserCommand.getStreet());
         userDetails.setTown(editUserCommand.getTown());
         userDetails.setZipCode(editUserCommand.getZipCode());
+        userDetails.setStreet(editUserCommand.getStreet());
+        userDetails.setFlatNumber(editUserCommand.getFlatNumber());
         return userDetails;
     }
 }
