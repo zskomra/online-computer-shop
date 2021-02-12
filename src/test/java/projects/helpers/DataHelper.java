@@ -1,6 +1,7 @@
 package projects.helpers;
 
 import projects.onlineshop.domain.model.*;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.web.command.*;
 
 import java.math.BigDecimal;

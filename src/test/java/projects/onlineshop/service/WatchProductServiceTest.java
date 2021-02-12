@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import projects.helpers.DataHelper;
 import projects.onlineshop.domain.model.*;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.domain.repository.WatchProductRepository;
 

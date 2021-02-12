@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import projects.helpers.DataHelper;
-import projects.onlineshop.domain.model.Order;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
@@ -13,6 +13,7 @@ import projects.onlineshop.exception.UnconvertibleDataException;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -80,7 +81,7 @@ class UserConverterTest {
         void shouldConvertValidUserDetailsCommandToUserDetails() {
             EditUserCommand command = DataHelper.editUserCommand("87-140","Chełmża","Bydgoska",
                 9,10,"Nowa","Jan" );
-            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct());
+            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct(),new ArrayList<>());
 
             UserDetails expected = DataHelper.userDetails("87-140","Chełmża","Bydgoska",9,10,"Nowa","Jan");
             UserDetails actual = cut.from(command, user);
@@ -92,7 +93,7 @@ class UserConverterTest {
         @Test
         void shouldNotChangeUserDetailsWhenConvertFromEmptyEditUserCommand(){
             EditUserCommand command = new EditUserCommand();
-            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct());
+            User user = new User(1L,"user@user.pl","s3cr3t",true, Set.of("ROLE_USER"),new UserDetails(),new Order(),new WatchProduct(), new ArrayList<>());
 
             UserDetails actual = cut.from(command, user);
             UserDetails expected = DataHelper.userDetails(null,null,null,null,null,null,null);

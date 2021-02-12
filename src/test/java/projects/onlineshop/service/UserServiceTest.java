@@ -1,6 +1,5 @@
 package projects.onlineshop.service;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -8,13 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import projects.helpers.DataHelper;
 import projects.onlineshop.converter.UserConverter;
-import projects.onlineshop.domain.model.Order;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
@@ -25,7 +21,6 @@ import projects.onlineshop.security.AuthenticatedUser;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
-import javax.xml.crypto.Data;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;

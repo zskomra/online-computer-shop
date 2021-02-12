@@ -1,7 +1,9 @@
-package projects.onlineshop.domain.model;
+package projects.onlineshop.domain.model.order;
 
 
 import lombok.*;
+import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.domain.model.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;

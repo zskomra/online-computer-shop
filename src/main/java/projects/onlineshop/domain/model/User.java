@@ -2,10 +2,10 @@ package projects.onlineshop.domain.model;
 
 
 import lombok.*;
+import projects.onlineshop.domain.model.order.Order;
+import projects.onlineshop.domain.model.order.UserOrders;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,4 +42,7 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private WatchProduct watchProduct;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<UserOrders> userOrders;
 }

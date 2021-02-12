@@ -2,13 +2,13 @@ package projects.onlineshop.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import projects.onlineshop.domain.model.*;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.repository.*;
 
 import java.math.BigDecimal;

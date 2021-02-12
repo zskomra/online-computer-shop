@@ -2,12 +2,13 @@ package projects.onlineshop.domain.model;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import projects.onlineshop.domain.model.order.Order;
+import projects.onlineshop.domain.model.order.UserOrders;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -46,4 +47,6 @@ public class Product {
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<WatchProduct> watchProducts = new HashSet<>();
 
+    @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
+    private Set<UserOrders> userOrders;
 }

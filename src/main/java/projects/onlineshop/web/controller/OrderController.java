@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import projects.onlineshop.domain.model.Order;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.service.OrderService;
 import projects.onlineshop.service.UserService;

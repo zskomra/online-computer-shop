@@ -8,10 +8,10 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import projects.helpers.DataHelper;
 import projects.onlineshop.domain.model.*;
+import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.repository.OrderRepository;
 import projects.onlineshop.domain.repository.UserRepository;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +19,6 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.when;
 
 @DisplayName("Order Service Specification")
