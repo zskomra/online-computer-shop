@@ -36,7 +36,7 @@
                 <div class="table-total-items">
                     <p>Suma: <span th:text="${orderSum}"></span>
                     </p>
-                    <a th:href="@{'/order/purchase?orderId=' + ${order.id}}">Kupuję</a>
+                    <a th:href="@{'/order/confirm?orderId=' + ${order.id}}">Potwierdź</a>
                 </div>
                 <div class="clear-both"></div>
             </div>

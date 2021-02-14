@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: heading">
+    <title>Koszyk zamówień</title>
 </head>
 <body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="content">
+        <div class="middle">
+            <h1>Twoje zamówienie:</h1><br>
+            <table class="table table-hover">
+                <thead class="table-header">
+                <tr>
+                    <th scope="col">Produkt:</th>
+                    <th scope="col">Cena:</th>
+                </tr>
+                </thead>
+                <tbody class="table-content">
+                <tr th:each="product : ${userOrders}">
+                    <td>
+                        <a th:href="@{'/product/view/' + ${product.id}}">
+                            <p th:text="${product.name}">Nazwa testowa</p>
+                        </a>
+                    </td>
+                    <td th:text="${product.price}">Cena testowa</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <div class="table-total-items">
+                    <p>Suma: <span th:text="${orderSum}"></span>
+                    </p>
+                    <a th:href="@{'/order/list'}">Zmień</a>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </div>
+    </div>
+    <div class = "details-form">
+        <h1>Dane do wysyłki:</h1></div>
+    <div class="details-form-data">
+        <form th:method="post" th:action="@{/profile}" th:object="${editUserCommand}">
+            <div>
+                <label>Imię:</label>
+                <input class="form-input" th:field="*{firstName}" type="text"/><br>
 
+                <label>Nazwisko:</label>
+                <input class="form-input" th:field="*{lastName}" type="text"/><br>
+
+                <label>Miejscowość:</label>
+                <input class="form-input" th:field="*{town}" type="text"/><br>
+
+                <label>Kod pocztowy:</label>
+                <input class="form-input" th:field="*{zipCode}" type="text"/><br>
+
+                <div th:if="${#fields.hasErrors('zipCode')}" th:text="${#fields.errors('zipCode')}"></div>
+                <label>Ulica:</label>
+                <input class="form-input" th:field="*{street}" type="text"/><br>
+
+                <label>Numer domu:</label>
+                <input class="form-input" th:field="*{homeNumber}" type="text"/><br>
+
+                <label>Numer mieszkania:</label>
+                <input class="form-input" th:field="*{flatNumber}" type="text"/><br>
+
+                <button class="details-btn" type="submit">Zmień</button>
+
+            </div>
+        </form>
+    </div>
+    <a th:href="@{'/order/confirm/summary'}">
+    <button class="details-btn confirm-btn" type="submit" >
+        Zamów</button>
+    </a>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

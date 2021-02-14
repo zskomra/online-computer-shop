@@ -3,7 +3,7 @@ package projects.onlineshop.domain.model;
 
 import lombok.*;
 import projects.onlineshop.domain.model.order.Order;
-import projects.onlineshop.domain.model.order.UserOrders;
+import projects.onlineshop.domain.model.order.UserOrder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -44,5 +44,5 @@ public class User {
     private WatchProduct watchProduct;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<UserOrders> userOrders;
+    private List<UserOrder> userOrders;
 }

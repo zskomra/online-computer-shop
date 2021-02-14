@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class UserOrders {
+public class UserOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
