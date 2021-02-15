@@ -40,40 +40,43 @@
     </div>
     <div class = "details-form">
         <h1>Dane do wysyłki:</h1></div>
-    <div class="details-form-data">
-        <form th:method="post" th:action="@{/profile}" th:object="${editUserCommand}">
+
+        <form th:method="post" th:action="@{/order/confirm}" th:object="${editUserCommand}">
+            <div class="details-form-data">
             <div>
                 <label>Imię:</label>
-                <input class="form-input" th:field="*{firstName}" type="text"/><br>
+                <input class="form-input" th:field="*{firstName}" type="text" readonly/><br>
 
                 <label>Nazwisko:</label>
-                <input class="form-input" th:field="*{lastName}" type="text"/><br>
+                <input class="form-input" th:field="*{lastName}" type="text" readonly/><br>
 
                 <label>Miejscowość:</label>
-                <input class="form-input" th:field="*{town}" type="text"/><br>
+                <input class="form-input" th:field="*{town}" type="text" readonly/><br>
 
                 <label>Kod pocztowy:</label>
-                <input class="form-input" th:field="*{zipCode}" type="text"/><br>
+                <input class="form-input" th:field="*{zipCode}" type="text" readonly/><br>
 
                 <div th:if="${#fields.hasErrors('zipCode')}" th:text="${#fields.errors('zipCode')}"></div>
                 <label>Ulica:</label>
-                <input class="form-input" th:field="*{street}" type="text"/><br>
+                <input class="form-input" th:field="*{street}" type="text" readonly/><br>
 
                 <label>Numer domu:</label>
-                <input class="form-input" th:field="*{homeNumber}" type="text"/><br>
+                <input class="form-input" th:field="*{homeNumber}" type="text" readonly/><br>
 
                 <label>Numer mieszkania:</label>
-                <input class="form-input" th:field="*{flatNumber}" type="text"/><br>
+                <input class="form-input" th:field="*{flatNumber}" type="text" readonly/><br>
 
-                <button class="details-btn" type="submit">Zmień</button>
-
+                    <button class="details-btn" type="submit" name="action" value="change">
+                        Zmień</button>
             </div>
+                </div>
+                    <button class="details-btn confirm-btn" type="submit" >
+                        Zamów
+                    </button>
         </form>
-    </div>
-    <a th:href="@{'/order/confirm/summary'}">
-    <button class="details-btn confirm-btn" type="submit" >
-        Zamów</button>
-    </a>
+
+
+
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 

@@ -1,8 +1,15 @@
 package projects.onlineshop.domain.model.order;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Builder @NoArgsConstructor @AllArgsConstructor
+@EqualsAndHashCode
 public class OrderAddress {
 
     private String zipCode;

@@ -10,6 +10,7 @@ import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.repository.OrderRepository;
 import projects.onlineshop.domain.repository.UserRepository;
+import projects.onlineshop.web.command.EditUserCommand;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -57,6 +58,16 @@ public class OrderService {
         }
         return bigDecimal;
     }
+    @Transactional
+    public boolean confirmOrder(Long orderId, EditUserCommand editUserCommand) {
+        Order order =orderRepository.getOne(orderId);
+        log.debug("Zamowien w koszyku: {}",order.getProducts().size());
+        order.getProducts().clear();
+        log.debug("Zamowien w koszyku: {}",order.getProducts().size());
+        orderRepository.save(order);
+        return true;
+    }
+    //todo do usuniecia zostawione na potrzebe testow
     @Transactional
     public boolean confirmOrder(Long orderId) {
         Order order =orderRepository.getOne(orderId);

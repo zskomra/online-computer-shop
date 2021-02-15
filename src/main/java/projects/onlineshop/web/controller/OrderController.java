@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.service.OrderService;
 import projects.onlineshop.service.UserService;
 import projects.onlineshop.web.command.EditUserCommand;
@@ -51,25 +52,48 @@ public class OrderController {
         model.addAttribute("order",order);
     }
 
+
     @GetMapping("/confirm")
-    public String showOrderSummary(Model model) {
+    public String showOrderDetails(Model model) {
         showUserCart(model);
         EditUserCommand editUserCommand = showCurrentUserDetails();
         model.addAttribute("editUserCommand",editUserCommand);
         return "order/order-summary";
     }
+
     @PostMapping("/confirm")
-    public String processOrder(@Valid EditUserCommand editUserCommand, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.debug("Niepoprawne dane do wysyłki: {}", editUserCommand);
+    public String processOrderSummary(@RequestParam Long orderId, @Valid EditUserCommand editUserCommand, BindingResult bindingResult) {
+        log.debug("Pobranie danych do wysyłki: {}", editUserCommand);
+        if(bindingResult.hasErrors()) {
+            log.debug("Niepoprawne dane do wysylki: {}", editUserCommand);
             return "order/order-summary";
         }
+//        try {
+            Boolean isOrderPlaced = orderService.confirmOrder(orderId, editUserCommand);
+            log.debug("Utworzono użytkownika: {}", isOrderPlaced);
+            return "order/order-confirm";
+//        }
+//        catch (Exception ex) {
+//            bindingResult.rejectValue("username",null,"Użytkownik o podanym adresie już istnieje");
+//            return "register/form";
+//        }
+//        catch (RuntimeException re){
+//            bindingResult.rejectValue(null, null, "Wystąpił błąd");
+//            return "register/form";
+//        }
+//        return "order/order-confirm";
+    }
+
+    @GetMapping("/confirm/summary")
+    public String showOrderSummary(){
         return "order/order-confirm";
     }
 
-    @GetMapping("confirm/summary")
-    public String showSummary() {
-        return "order/order-confirm";
+
+    @RequestMapping(value = "/confirm", method = {RequestMethod.POST}, params = "action=change")
+    public String editUserDetails(EditUserCommand editUserCommand) {
+        log.debug("Pobranie danych do edycji: {}", editUserCommand);
+        return "profile/form";
     }
 
 //    @RequestMapping(value = "/confirm", method = {RequestMethod.GET, RequestMethod.POST})
