@@ -1,10 +1,18 @@
 package projects.onlineshop.converter;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.order.OrderAddress;
 import projects.onlineshop.domain.model.order.UserOrder;
 import projects.onlineshop.web.command.EditUserCommand;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+@Component
+@RequiredArgsConstructor
 public class UserOrderConverter {
 
     public UserOrder from(EditUserCommand editUserCommand, Order order) {
@@ -18,7 +26,7 @@ public class UserOrderConverter {
                             .userLastName(editUserCommand.getLastName())
                             .zipCode(editUserCommand.getZipCode())
                             .build())
-                    .products(order.getProducts())
+                    .products(new ArrayList<>(order.getProducts()))
                     .build();
 
     }

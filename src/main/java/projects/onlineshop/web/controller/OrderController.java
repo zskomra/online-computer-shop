@@ -68,20 +68,15 @@ public class OrderController {
             log.debug("Niepoprawne dane do wysylki: {}", editUserCommand);
             return "order/order-summary";
         }
-//        try {
+        try {
             Boolean isOrderPlaced = orderService.confirmOrder(orderId, editUserCommand);
-            log.debug("Utworzono użytkownika: {}", isOrderPlaced);
+            log.debug("Utworzono zamówienie: {}", isOrderPlaced);
             return "order/order-confirm";
-//        }
-//        catch (Exception ex) {
-//            bindingResult.rejectValue("username",null,"Użytkownik o podanym adresie już istnieje");
-//            return "register/form";
-//        }
-//        catch (RuntimeException re){
-//            bindingResult.rejectValue(null, null, "Wystąpił błąd");
-//            return "register/form";
-//        }
-//        return "order/order-confirm";
+        }
+        catch (RuntimeException re){
+            bindingResult.rejectValue(null, null, "Wystąpił błąd");
+            return "order/order-summary";
+        }
     }
 
     @GetMapping("/confirm/summary")
@@ -95,20 +90,6 @@ public class OrderController {
         log.debug("Pobranie danych do edycji: {}", editUserCommand);
         return "profile/form";
     }
-
-//    @RequestMapping(value = "/confirm", method = {RequestMethod.GET, RequestMethod.POST})
-//    public String confirmPurchase(@RequestParam Long orderId, Model model,  EditUserCommand editUserCommand){
-//        Long id = orderId;
-//        log.debug("Pobrano id zamowienia: {}", id);
-//        showUserCart(model);
-//        editUserCommand = showCurrentUserDetails();
-//        model.addAttribute("editUserCommand",editUserCommand);
-
-
-//        Boolean success = orderService.confirmOrder(orderId);
-//        log.debug("Koszyk usunieto : {}", success);
-//        return "order/order-summary";
-//    }
 
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public String deleteProductFromOrder(@RequestParam Long productId) {

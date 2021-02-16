@@ -26,7 +26,7 @@ public class UserOrder {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     private List<Product> products;
 
     private BigDecimal price;

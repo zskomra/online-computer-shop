@@ -10,6 +10,7 @@ import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
+import projects.onlineshop.domain.model.order.UserOrder;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.security.AuthenticatedUser;

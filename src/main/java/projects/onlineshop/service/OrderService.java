@@ -5,14 +5,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import projects.onlineshop.converter.UserOrderConverter;
 import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.Product;
 import projects.onlineshop.domain.model.User;
+import projects.onlineshop.domain.model.order.Status;
+import projects.onlineshop.domain.model.order.UserOrder;
 import projects.onlineshop.domain.repository.OrderRepository;
+import projects.onlineshop.domain.repository.UserOrderRepository;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.web.command.EditUserCommand;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,6 +29,8 @@ public class OrderService {
     private final UserService userService;
     private final ProductService productService;
     private final UserRepository userRepository;
+    private final UserOrderConverter userOrderConverter;
+    private final UserOrderRepository userOrderRepository;
 
     public List<Product> getUserOrders(User loggedUser) {
         return userRepository.getUsersByUsername(loggedUser.getUsername()).getOrder().getProducts();
@@ -52,21 +59,32 @@ public class OrderService {
     public BigDecimal getOrderSum() {
         List<Product> userOrders = getUserOrders(userService.getLoggedUser());
         BigDecimal bigDecimal = BigDecimal.ZERO;
-        for (int i = 0; i < userOrders.size(); i++) {
-            BigDecimal currentPrice = userOrders.get(i).getPrice();
+        for (Product userOrder : userOrders) {
+            BigDecimal currentPrice = userOrder.getPrice();
             bigDecimal = bigDecimal.add(currentPrice);
         }
         return bigDecimal;
     }
     @Transactional
     public boolean confirmOrder(Long orderId, EditUserCommand editUserCommand) {
-        Order order =orderRepository.getOne(orderId);
-        log.debug("Zamowien w koszyku: {}",order.getProducts().size());
-        order.getProducts().clear();
-        log.debug("Zamowien w koszyku: {}",order.getProducts().size());
-        orderRepository.save(order);
-        return true;
+        Order cart = orderRepository.getOne(orderId);
+        if(cart.getProducts().size()>0) {
+            UserOrder userOrder = userOrderConverter.from(editUserCommand, cart);
+            userOrder.setOrderDate(LocalDate.now());
+            userOrder.setPrice(getOrderSum());
+            userOrder.setStatus(Status.IN_PROGRESS);
+            userOrder.setUser(userService.getLoggedUser());
+            userOrderRepository.save(userOrder);
+
+            log.debug("Zamowione produkty: {}", userOrder.getProducts().size());
+            cart.getProducts().clear();
+            log.debug("Zamowien w koszyku: {}", cart.getProducts().size());
+            orderRepository.save(cart);
+            return true;
+        }
+        else return false;
     }
+
     //todo do usuniecia zostawione na potrzebe testow
     @Transactional
     public boolean confirmOrder(Long orderId) {

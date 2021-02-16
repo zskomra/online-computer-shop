@@ -41,7 +41,7 @@
     <div class = "details-form">
         <h1>Dane do wysyłki:</h1></div>
 
-        <form th:method="post" th:action="@{/order/confirm}" th:object="${editUserCommand}">
+        <form th:method="post" th:action="@{'/order/confirm?orderId=' + ${order.id}}" th:object="${editUserCommand}">
             <div class="details-form-data">
             <div>
                 <label>Imię:</label>
