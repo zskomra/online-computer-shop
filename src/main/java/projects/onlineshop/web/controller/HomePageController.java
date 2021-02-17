@@ -14,6 +14,7 @@ import projects.onlineshop.service.ProductService;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller @Slf4j
 @RequestMapping("/home")
@@ -27,13 +28,13 @@ public class HomePageController {
     @GetMapping
     public String getMainPage(Model model) {
         List<Product> getLast5Added = productService.getLast5AddedProductsSortedByDate();
-        log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added);
+        log.debug("Pobrano ostatnio dodane produktu: {}",getLast5Added.stream().map(Product::getName).collect(Collectors.toList()));
 
         Set<Product> getRecommended4Products = productService.getRecommend();
-        log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products);
+//        log.debug("Pobrano rekomendowane produkty: {}", getRecommended4Products.size());
 
         List<Product> productRatings = productService.top5ratedProducts();
-        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings);
+//        log.debug("Pobrano najlepiej ocenianie produkty {}",productRatings.stream().map(Product::getName).collect(Collectors.toList()));
 
         model.addAttribute("last5Products",getLast5Added);
         model.addAttribute("recommended4Product", getRecommended4Products);

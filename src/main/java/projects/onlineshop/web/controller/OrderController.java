@@ -62,13 +62,16 @@ public class OrderController {
     }
 
     @PostMapping("/confirm")
-    public String processOrderSummary(@RequestParam Long orderId, @Valid EditUserCommand editUserCommand, BindingResult bindingResult) {
+    public String processOrderSummary(@Valid EditUserCommand editUserCommand, BindingResult bindingResult, Model model) {
         log.debug("Pobranie danych do wysyłki: {}", editUserCommand);
-        if(bindingResult.hasErrors()) {
+        Order cart = userService.getLoggedUser().getOrder();
+        showUserCart(model);
+        if(bindingResult.hasErrors() || cart.getProducts().size() <1) {
             log.debug("Niepoprawne dane do wysylki: {}", editUserCommand);
             return "order/order-summary";
         }
         try {
+            Long orderId = cart.getId();
             Boolean isOrderPlaced = orderService.confirmOrder(orderId, editUserCommand);
             log.debug("Utworzono zamówienie: {}", isOrderPlaced);
             return "order/order-confirm";

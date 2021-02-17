@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
+@ToString
 public class UserOrder {
 
     @Id
