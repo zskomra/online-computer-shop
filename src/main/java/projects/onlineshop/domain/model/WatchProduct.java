@@ -25,6 +25,6 @@ public class WatchProduct {
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
 }
