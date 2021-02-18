@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: heading">
+    <title>Szczegóły zamówienia</title>
 </head>
+
 <body>
-<h1>Zamówienie złożone</h1>
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="content">
+        <div class="middle">
+            <div class="order-summary">
+                <h2>Zamówienie złożone</h2>
+            </div>
+            <div class="order-details">
+                <table>
+                    <tr>
+                        <th>Numer Zamówienia</th>
+                        <td th:text="${userOrder.getId()}">1000</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Status</th>
+                        <td th:text="${userOrder.getStatus()}">Przykładowy status</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Data zamówienia</th>
+                        <td th:text="${userOrder.getOrderDate()}">Data</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Kwota</th>
+                        <td th:text="${userOrder.getPrice()}">1000zł</td>
+                    </tr>
+
+                </table>
+                <button class="order-details-button">Sprawdź zamówienie</button>
+            </div>
+</div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

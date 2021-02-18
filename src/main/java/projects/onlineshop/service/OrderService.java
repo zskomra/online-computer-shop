@@ -66,9 +66,9 @@ public class OrderService {
         return bigDecimal;
     }
     @Transactional
-    public boolean confirmOrder(Long orderId, EditUserCommand editUserCommand) {
+    public Long confirmOrder(Long orderId, EditUserCommand editUserCommand) {
         Order cart = orderRepository.getOne(orderId);
-        if(cart.getProducts().size()>0) {
+        if (cart.getProducts().size() > 0) {
             UserOrder userOrder = userOrderConverter.from(editUserCommand, cart);
             userOrder.setOrderDate(LocalDate.now());
             userOrder.setPrice(getOrderSum());
@@ -80,9 +80,9 @@ public class OrderService {
             cart.getProducts().clear();
             log.debug("Zamowien w koszyku: {}", cart.getProducts().size());
             orderRepository.save(cart);
-            return true;
-        }
-        else return false;
+            return userOrder.getId();
+
+        }return null;
     }
 
     //todo do usuniecia zostawione na potrzebe testow

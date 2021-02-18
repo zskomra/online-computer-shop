@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.order.Order;
 import projects.onlineshop.domain.model.Product;
+import projects.onlineshop.domain.model.order.UserOrder;
+import projects.onlineshop.domain.repository.UserOrderRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.service.OrderService;
 import projects.onlineshop.service.UserService;
@@ -25,6 +27,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserService userService;
+    private final UserOrderRepository userOrderRepository;
 
 
 
@@ -72,9 +75,10 @@ public class OrderController {
         }
         try {
             Long orderId = cart.getId();
-            Boolean isOrderPlaced = orderService.confirmOrder(orderId, editUserCommand);
-            log.debug("Utworzono zamówienie: {}", isOrderPlaced);
-            return "order/order-confirm";
+            Long userOrderId = orderService.confirmOrder(orderId, editUserCommand);
+            log.debug("Utworzono zamówienie: {}", userOrderId);
+
+            return "redirect:confirm/summary/" + userOrderId;
         }
         catch (RuntimeException re){
             bindingResult.rejectValue(null, null, "Wystąpił błąd");
@@ -82,8 +86,10 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/confirm/summary")
-    public String showOrderSummary(){
+    @GetMapping("/confirm/summary/{id}")
+    public String showOrderSummary(@PathVariable(name = "id")Long id, Model model){
+        UserOrder userOrder = userOrderRepository.getOne(id);
+        model.addAttribute("userOrder", userOrder);
         return "order/order-confirm";
     }
 

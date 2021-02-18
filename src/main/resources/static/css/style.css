@@ -491,3 +491,40 @@ a:hover {
 	text-decoration: none;
 	color: #1529ad;
 }
+
+.order-summary h2{
+	text-align: center;
+	font-size: x-large;
+}
+
+.order-details table,th,td{
+
+	border-collapse: collapse;
+
+}
+.order-details-button{
+	width: 200px;
+	height: 30px;
+	margin-left: 150px;
+	margin-top: 10px;
+	font-size: 15px;
+}
+
+
+
+.order-details th,td{
+	padding: 5px;
+	text-align: left;
+	font-size: medium;
+}
+.order-details th {
+	width: 250px;
+}
+.order-details {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid black;
+
+}
+
