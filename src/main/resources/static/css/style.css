@@ -223,7 +223,7 @@
 	font-size: 25px;
 }
 
-.recommended, .news, .top-rated {
+.recommended, .news, .top-rated, .order-details-products {
 	width: 100%;
 	height: auto;
 	min-height: 300px;
@@ -234,6 +234,10 @@
 	border-radius: 5px 5px 5px 5px;
 	background-color: rgba(0, 125, 197, 0.103);
 	float: left;
+}
+.order-details-products{
+	min-height: auto;
+	height: auto;
 }
 
 

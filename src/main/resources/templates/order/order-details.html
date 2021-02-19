@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: heading">
+    <title>Szczegóły zamówienia</title>
+</head>
+
+<body>
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="content">
+        <div class="middle">
+            <div class="order-summary">
+                <h2>Szczegóły zamówienia</h2>
+            </div>
+            <div class="order-details">
+                <table>
+                    <tr>
+                        <th>Numer Zamówienia</th>
+                        <td th:text="${userOrder.getId()}">1000</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Status</th>
+                        <td th:text="${userOrder.getStatus()}">Przykładowy status</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Data zamówienia</th>
+                        <td th:text="${userOrder.getOrderDate()}">Data</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Kwota</th>
+                        <td th:text="${userOrder.getPrice()}">1000zł</td>
+                    </tr>
+                    <tr>
+                        <th rowspan>Adres dostawy</th>
+                        <td th:if="*{orderAddress.getFlatNumber() != null}" th:text="${orderAddress.getStreet() + ' ' +  orderAddress.getHomeNumber() +
+                        '/' + orderAddress.getFlatNumber()
+                        + ',' + orderAddress.getZipCode() + ' ' + orderAddress.getTown()}"></td>
+                        <td th:unless="*{orderAddress.getFlatNumber() != null}" th:text="${orderAddress.getStreet() + ' ' +  orderAddress.getHomeNumber()
+                        + ',' + orderAddress.getZipCode() + ' ' + orderAddress.getTown()}"></td>
+                    </tr>
+                </table>
+            </div>
+<!--            <label th:text="*{orderAddress.getFlatNumber() != null}? *{'/' + orderAddress.getFlatNumber()} : ''"></label>-->
+            <div class="order-details-products">
+                <h1 class="title-window">Zamówione produkty</h1>
+                <table class="table table-hover">
+                    <thead class="table-header">
+                    <tr>
+                        <th scope="col">Nazwa produktu</th>
+                        <th scope="col">Kategoria produktu</th>
+                        <th scope="col">Cena produktu</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-content">
+                    <tr th:each="product : ${orderProducts}">
+                        <td>
+                            <a th:href="@{'/product/view/' + ${product.id}}">
+                                <p th:text="${product.name}">Nazwa testowa</p>
+                            </a>
+                        </td>
+                        <td th:text="${product.category.name}"></td>
+                        <td th:text="${product.price}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{https://kit.fontawesome.com/a076d05399.js}"></script>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

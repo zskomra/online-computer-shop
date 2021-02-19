@@ -93,6 +93,15 @@ public class OrderController {
         return "order/order-confirm";
     }
 
+    @GetMapping("/details/{id}")
+    public String showOrderDetails(@PathVariable(name = "id")Long id, Model model) {
+        UserOrder userOrder = userOrderRepository.getOne(id);
+        model.addAttribute("userOrder", userOrder);
+        model.addAttribute("orderAddress",userOrder.getOrderAddress());
+        model.addAttribute("orderProducts",userOrder.getProducts());
+        return "order/order-details";
+    }
+
 
     @RequestMapping(value = "/confirm", method = {RequestMethod.POST}, params = "action=change")
     public String editUserDetails(EditUserCommand editUserCommand) {

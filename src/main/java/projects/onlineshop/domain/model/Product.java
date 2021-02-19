@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "products")
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 @EqualsAndHashCode(of = {"name","description","price","category"})
+@ToString
 public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +48,7 @@ public class Product {
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<WatchProduct> watchProducts = new HashSet<>();
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<UserOrder> userOrders;
 }

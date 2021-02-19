@@ -34,7 +34,9 @@
                     </tr>
 
                 </table>
-                <button class="order-details-button">Sprawdź zamówienie</button>
+                    <a th:href="@{'/order/details/'+ ${userOrder.getId()}}">
+                        <button class="order-details-button">Sprawdź zamówienie</button>
+                    </a>
             </div>
 </div>
     </div>

@@ -216,7 +216,7 @@
 	font-size: 25px;
 }
 
-.recomended, .news, .chosen {
+.recomended, .news, .chosen, .order-details-products {
 	height: 150px;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
@@ -224,6 +224,9 @@
 	background-color: rgba(0, 125, 197, 0.103);
 	margin: 10px;
 	width: 100%;
+}
+.order-details-products{
+	height: auto;
 }
 
 .footer {
