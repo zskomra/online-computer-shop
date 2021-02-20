@@ -11,15 +11,16 @@ import projects.onlineshop.domain.model.User;
 import projects.onlineshop.domain.model.UserDetails;
 import projects.onlineshop.domain.model.WatchProduct;
 import projects.onlineshop.domain.model.order.UserOrder;
+import projects.onlineshop.domain.repository.UserOrderRepository;
 import projects.onlineshop.domain.repository.UserRepository;
 import projects.onlineshop.exception.UserAlreadyExistsException;
 import projects.onlineshop.security.AuthenticatedUser;
 import projects.onlineshop.web.command.EditUserCommand;
 import projects.onlineshop.web.command.RegisterUserCommand;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 @Service
@@ -31,6 +32,7 @@ public class UserService {
     private final UserConverter userConverter;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticatedUser authenticatedUser;
+    private final UserOrderRepository userOrderRepository;
 
     @Transactional
     public Long create(RegisterUserCommand registerUserCommand) {
@@ -81,4 +83,16 @@ public class UserService {
         String username = authenticatedUser.getUsername();
         return userRepository.getUsersByUsername(username);
     }
+
+    public List<UserOrder> getUserOrderHistory() {
+//        List<UserOrder> userOrders = getLoggedUser().getUserOrders();
+//        userOrders.sort(Comparator.comparing(UserOrder::getOrderDate).reversed());
+//        return userOrders;
+        Long userId = getLoggedUser().getId();
+        List<UserOrder> allByUserId = userOrderRepository.getAllByUserIdOrderByOrderDateDesc(userId);
+        return allByUserId;
+    }
+
+
+
 }

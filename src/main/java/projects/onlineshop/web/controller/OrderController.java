@@ -18,6 +18,7 @@ import projects.onlineshop.web.command.EditUserCommand;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -96,7 +97,9 @@ public class OrderController {
     @GetMapping("/details/{id}")
     public String showOrderDetails(@PathVariable(name = "id")Long id, Model model) {
         UserOrder userOrder = userOrderRepository.getOne(id);
+        LocalDate createdDate = userOrder.getOrderDate().toLocalDate();
         model.addAttribute("userOrder", userOrder);
+        model.addAttribute("createdDate",createdDate);
         model.addAttribute("orderAddress",userOrder.getOrderAddress());
         model.addAttribute("orderProducts",userOrder.getProducts());
         return "order/order-details";
@@ -113,6 +116,13 @@ public class OrderController {
     public String deleteProductFromOrder(@RequestParam Long productId) {
         orderService.deleteProductFromCart(productId);
         return "redirect:/order/list";
+    }
+
+    @GetMapping("/history")
+    public String userOrdersHistory(Model model){
+        List<UserOrder> userOrders = userService.getUserOrderHistory();
+        model.addAttribute("userOrders",userOrders);
+        return "order/orders-history";
     }
 
 

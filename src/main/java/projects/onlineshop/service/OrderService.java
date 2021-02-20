@@ -18,6 +18,7 @@ import projects.onlineshop.web.command.EditUserCommand;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,7 +71,7 @@ public class OrderService {
         Order cart = orderRepository.getOne(orderId);
         if (cart.getProducts().size() > 0) {
             UserOrder userOrder = userOrderConverter.from(editUserCommand, cart);
-            userOrder.setOrderDate(LocalDate.now());
+            userOrder.setOrderDate(LocalDateTime.now());
             userOrder.setPrice(getOrderSum());
             userOrder.setStatus(Status.IN_PROGRESS);
             userOrder.setUser(userService.getLoggedUser());

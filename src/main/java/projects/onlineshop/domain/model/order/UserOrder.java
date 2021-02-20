@@ -9,6 +9,7 @@ import projects.onlineshop.domain.model.order.Status;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class UserOrder {
 
     private BigDecimal price;
 
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
 
     private Status status;
 
