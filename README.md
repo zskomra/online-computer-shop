@@ -7,3 +7,6 @@
 ---
 
 Web app for online shopping
+---
+Demo: 
+https://online-computer-shop.herokuapp.com/home
